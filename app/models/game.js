@@ -10,7 +10,7 @@ App.Game = Ember.Object.extend({
 
     /**
      * Computer player.
-     * type {Player}
+     * @type {Player}
      */
 	player2: null,
 
