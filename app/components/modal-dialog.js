@@ -1,3 +1,7 @@
+/**
+ * @module Components
+ * @class ModalDialogComponent
+ */
 App.ModalDialogComponent = Ember.Component.extend( {
 	showCancelBtn: true,
 

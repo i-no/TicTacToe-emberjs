@@ -1,7 +1,17 @@
+/**
+ * @module Controllers
+ * @class GameoverModalController
+ */
 App.GameoverModalController = Ember.ObjectController.extend( {
-
+	/**
+	 * Controller dependencies.
+	 */
 	needs: [ 'game' ],
 
+	/**
+	 * @property gameoverStatus
+	 * @type {string}
+	 */
 	gameoverStatus: function () {
 		var winner = this.get( 'model.winner' );
 
@@ -13,6 +23,10 @@ App.GameoverModalController = Ember.ObjectController.extend( {
 		else return 'win';
 	}.property( 'model.winner' ),
 
+	/**
+	 * @property gameoverText
+	 * @type {string}
+	 */
 	gameoverText: function () {
 		var status = this.get( 'gameoverStatus' );
 

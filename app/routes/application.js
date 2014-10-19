@@ -1,3 +1,7 @@
+/**
+ * @module Routes
+ * @class ApplicationRoute
+ */
 App.ApplicationRoute = Ember.Route.extend( {
 	actions: {
 		showModal: function ( name, model ) {

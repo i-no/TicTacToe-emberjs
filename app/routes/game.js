@@ -1,3 +1,7 @@
+/**
+ * @module Routes
+ * @class GameRoute
+ */
 App.GameRoute = Ember.Route.extend( {
 	game: App.Game.create( {
 		player1: App.Player.create( {} ),

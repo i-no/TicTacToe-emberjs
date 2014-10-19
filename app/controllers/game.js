@@ -1,6 +1,14 @@
+/**
+ * @module Controllers
+ * @class GameController
+ */
 App.GameController = Ember.ObjectController.extend( {
 	//region Properties
 
+	/**
+	 * @property startTime
+	 * @type {Moment}
+	 */
 	startTime: moment(),
 
 	//endregion
@@ -9,6 +17,7 @@ App.GameController = Ember.ObjectController.extend( {
 
 	/**
 	 *
+	 * @method makeMove
 	 * @param {Cell} cell
 	 */
 	makeMove: function ( cell ) {
@@ -30,7 +39,7 @@ App.GameController = Ember.ObjectController.extend( {
 	},
 
 	/**
-	 *
+	 * @method endGame
 	 */
 	endGame: function () {
 		var winner = null,
@@ -58,15 +67,16 @@ App.GameController = Ember.ObjectController.extend( {
 	},
 
 	/**
+	 * Save highscore in storage.
 	 *
-	 * @throws Throws error inf
+	 * @throws Throws error in <tt>highscores</tt> parameter is empty.
 	 * @param {HighscoresItem} highscores
 	 */
 	saveHighscores: function ( highscores ) {
 		var storage = App.get( 'highscoresStorage' );
 
 		if ( Ember.isNone( highscores ) ) {
-			throw '';
+			throw 'Parameter "highscores" should not be empty.';
 		}
 
 		storage.addItem( highscores );

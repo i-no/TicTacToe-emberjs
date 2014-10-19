@@ -1,4 +1,13 @@
+/**
+ * @module Controllers
+ * @class PlayerNameModalController
+ */
 App.PlayerNameModalController = Ember.ObjectController.extend( {
+	/**
+	 * @property playerName
+	 * @type {string}
+	 * @default {null}
+	 */
 	playerName: null,
 
 	saveBtn: {

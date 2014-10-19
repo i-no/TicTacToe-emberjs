@@ -1,3 +1,7 @@
+/**
+ * @module Controllers
+ * @class HighscoresController
+ */
 App.HighscoresController = Ember.ObjectController.extend( {
 	highscores: function () {
 		var storage = App.get( 'highscoresStorage' );

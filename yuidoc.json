@@ -1,0 +1,7 @@
+{
+	"name": "TicTacToe Ember.js Example",
+	"options": {
+		"paths": "./app",
+		"outdir": "./docs"
+	}
+}

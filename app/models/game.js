@@ -1,46 +1,67 @@
+/**
+ * @module Models
+ * @class Game
+ */
 App.Game = Ember.Object.extend( {
 
 	//region Properties
 
 	/**
-	 * User player.
+	 * First player.
+	 *
+	 * @property player1
 	 * @type {Player}
 	 */
 	player1: null,
 
 	/**
-	 * Computer player.
+	 * Second player.
+	 *
+	 * @property player2
 	 * @type {Player}
 	 */
 	player2: null,
 
 	/**
 	 * Player, who makes turn now.
+	 *
+	 * @property currentPlayer
 	 * @type {Player}
 	 */
 	currentPlayer: null,
 
 	/**
 	 * Game field.
+	 *
+	 * @property field
 	 * @type {Field}
 	 */
 	field: App.Field.create( {} ),
 
-	itemsToWin: 4,
+	/**
+	 * Number of marks of the same type that should be placed in a horizontal, vertical, or diagonal row to win the game.
+	 *
+	 * @property marksToWin
+	 * @type {number}
+	 * @default 4
+	 */
+	marksToWin: 4,
 
 	//endregion
 
 	//region Methods
 
 	/**
+	 * Check array to find marksToWin marks in a row.
 	 *
-	 * @param {Array.<Cell>} data
-	 * @return {boolean}
+	 * @method checkArray
+	 * @param {Cell[]} data Array of field cells.
+	 * @return {boolean} Returns <tt>true</tt> if there are {{#crossLink "Game/marksToWin:property"}}{{/crossLink}} marks of the same type in a row. Otherwise returns <tt>false</tt>.
 	 */
 	checkArray: function ( data ) {
 		var prevValue = null,
 			count = 0,
-			itemsToWin = this.get( 'itemsToWin' );
+			marksToWin = this.get( 'marksToWin' );
 
 		for ( var i = 0; i < data.length; i++ ) {
 			if ( data[ i ].get( 'isEmpty' ) ) {
@@ -61,7 +82,7 @@ App.Game = Ember.Object.extend( {
 				}
 			}
 
-			if ( count >= itemsToWin ) {
+			if ( count >= marksToWin ) {
 				console.log( data );
 				return true;
 			}
@@ -72,13 +93,15 @@ App.Game = Ember.Object.extend( {
 
 	/**
 	 * Check that game has a winner.
-	 * @return {boolean} - Returns true
+	 *
+	 * @method hasWinner
+	 * @return {boolean} Returns <tt>true</tt> if we have a winner in the game. Otherwise returns <tt>false</tt>.
 	 */
 	hasWinner: function () {
 		var field = this.get( 'field' ),
 			fieldSize = field.get( 'size' ),
-			itemsToWin = this.get( 'itemsToWin' ),
-			diagonals = field.getDiagonals( itemsToWin );
+			marksToWin = this.get( 'marksToWin' ),
+			diagonals = field.getDiagonals( marksToWin );
 
 		//check rows and columns
 		for ( var i = 0; i < fieldSize; i++ ) {
@@ -89,7 +112,7 @@ App.Game = Ember.Object.extend( {
 		//check diagonals
 		if ( !Ember.isEmpty( diagonals ) ) {
 			for ( i = 0; i < diagonals.length; i++ ) {
-				if ( this.checkArray( diagonals[ i ] ) ) return true;
+				if ( this.checkArray( diagonals[ i ] ) ) return true;``
 			}
 		}
 
@@ -98,7 +121,10 @@ App.Game = Ember.Object.extend( {
 
 	/**
 	 * Check that game is over.
-	 * @return {boolean} Returns true if we have a winner or if there are no empty cells. Otherwise returns false.
+	 *
+	 * @method isGameOver
+	 * @return {boolean} Returns <tt>true</tt> if we have a winner or if there are no empty cells.
+	 * Otherwise returns <tt>false</tt>.
 	 */
 	isGameOver: function () {
 		var field = this.get( 'field' ),
@@ -109,6 +135,8 @@ App.Game = Ember.Object.extend( {
 
 	/**
 	 * Initializes game. This method clears game field and selects a player who plays first.
+	 *
+	 * @method start
 	 */
 	start: function () {
 		var players = [ this.get( 'player1' ), this.get( 'player2' ) ],
@@ -126,7 +154,9 @@ App.Game = Ember.Object.extend( {
 
 	/**
 	 * Returns player for the next turn.
-	 * @return {Player}
+	 *
+	 * @method nextPlayer
+	 * @return {Player} Returns player who turn is next.
 	 */
 	nextPlayer: function () {
 		var player1 = this.get( 'player1' ),

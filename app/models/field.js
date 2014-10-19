@@ -1,14 +1,24 @@
+/**
+ * Represents game field.
+ *
+ * @module Models
+ * @class Field
+ */
 App.Field = Ember.Object.extend( {
 	//region Properties
 
 	/**
 	 * Field cells.
-	 * @type {Array.<Array.<Cell>>}
+	 *
+	 * @property cells
+	 * @type {[Cell[]]}
 	 */
 	cells: null,
 
 	/**
 	 * Field size.
+	 *
+	 * @property size
 	 * @type {number}
 	 * @default 5
 	 */
@@ -38,7 +48,9 @@ App.Field = Ember.Object.extend( {
 
 	/**
 	 * Get empty cells of field.
-	 * @returns {Array.<Cell>}
+	 *
+	 * @method getEmptyCells
+	 * @return {Cell[]} Array of empty field cells.
 	 */
 	getEmptyCells: function () {
 		return this.toArray().filter( function ( item ) {
@@ -48,6 +60,8 @@ App.Field = Ember.Object.extend( {
 
 	/**
 	 * Clean field.
+	 *
+	 * @method clear
 	 */
 	clear: function () {
 		var cells = this.get( 'cells' );
@@ -61,9 +75,11 @@ App.Field = Ember.Object.extend( {
 
 	/**
 	 * Check that row and column indexes are in field ranges.
-	 * @param {number} row - Field row index. Zero based.
-	 * @param {number} col - Field column index. Zero based.
-	 * @returns {boolean}
+	 *
+	 * @method isPositionValid
+	 * @param {number} row Field row index. Zero based.
+	 * @param {number} col Field column index. Zero based.
+	 * @return {boolean}
 	 */
 	isPositionValid: function ( row, col ) {
 		var fieldSize = this.get( 'size' );
@@ -73,10 +89,12 @@ App.Field = Ember.Object.extend( {
 
 	/**
 	 * Get field value.
+	 *
+	 * @method getValue
 	 * @throws Throws error if row or column indexes are out of field ranges.
-	 * @param {number} row - Field row index. Zero based.
-	 * @param {number} col - Field column index. Zero based.
-	 * @returns {string|null}
+	 * @param {number} row Field row index. Zero based.
+	 * @param {number} col Field column index. Zero based.
+	 * @return {string} Returns field cell value.
 	 */
 	getValue: function ( row, col ) {
 		var cells = this.get( 'cells' );
@@ -90,10 +108,12 @@ App.Field = Ember.Object.extend( {
 
 	/**
 	 * Set field value.
+	 *
+	 * @method setValue
 	 * @throws Throws error if row or column indexes are out of field ranges.
-	 * @param {number} row - Field row index. Zero based.
-	 * @param {number} col - Field column index. Zero base.
-	 * @param {string} value
+	 * @param {number} row Field row index. Zero based.
+	 * @param {number} col Field column index. Zero base.
+	 * @param {string} value Value to set.
 	 */
 	setValue: function ( row, col, value ) {
 		var cells = this.get( 'cells' );
@@ -107,7 +127,9 @@ App.Field = Ember.Object.extend( {
 
 	/**
 	 * Converts field to plain array of cells.
-	 * @returns {Array.<Cell>}
+	 *
+	 * @method toArray
+	 * @return {Cell[]} Array of field cells.
 	 */
 	toArray: function () {
 		var result = [],
@@ -124,7 +146,9 @@ App.Field = Ember.Object.extend( {
 
 	/**
 	 * Get string representation of field.
-	 * @returns {string}
+	 *
+	 * @method toString
+	 * @return {string} String representation of field.
 	 */
 	toString: function () {
 		var result = '',
@@ -143,16 +167,18 @@ App.Field = Ember.Object.extend( {
 
 	/**
 	 * Get row of field.
-	 * @param {number} index - Field row index
-	 * @returns {?Array.<Cell>}
+	 *
+	 * @method getRow
+	 * @throws Throws error if row index is out of range.
+	 * @param {number} index Field row index
+	 * @return {Cell[]} Array of cells that represents row of field.
 	 */
 	getRow: function ( index ) {
 		var cells = this.get( 'cells' ),
 			fieldSize = this.get( 'size' );
 
 		if ( index >= fieldSize ) {
-			console.log( 'Invalid row index: ' + index );
-			return null;
+			throw 'Invalid row index: ' + index;
 		}
 
 		return cells[ index ];
@@ -160,8 +186,11 @@ App.Field = Ember.Object.extend( {
 
 	/**
 	 * Get column of field.
-	 * @param {number} index - Field column index
-	 * @returns {?Array.<Cell>}
+	 *
+	 * @method getColumn
+	 * @throws Throws error if column index is out of range.
+	 * @param {number} index Field column index
+	 * @return {Cell[]} Array of cells that represents column of field.
 	 */
 	getColumn: function ( index ) {
 		var cells = this.get( 'cells' ),
@@ -169,8 +198,7 @@ App.Field = Ember.Object.extend( {
 			column = [];
 
 		if ( index >= fieldSize ) {
-			console.log( 'Invalid column index: ' + index );
-			return null;
+			throw 'Invalid column index: ' + index;
 		}
 
 		for ( var i = 0; i < fieldSize; i++ ) {
@@ -182,8 +210,10 @@ App.Field = Ember.Object.extend( {
 
 	/**
 	 * Get array of field diagonals of certain length.
-	 * @param {number} length - Diagonals length
-	 * @returns {Array.<Array.<Cell>>}
+	 *
+	 * @method getDiagonals
+	 * @param {number} length Diagonals length
+	 * @return {Cell[][]} Array of diagonals.
 	 */
 	getDiagonals: function ( length ) {
 		var diagonal,
