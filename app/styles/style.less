@@ -1,0 +1,61 @@
+.header {
+  text-align: center;
+}
+
+.main-menu-btn {
+  margin: 20px auto;
+  max-width: 200px;
+}
+
+.game-field {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: auto;
+}
+
+.game-field-container {
+  margin-left: 5px;
+}
+
+.field-cell {
+  position: relative;
+  float: left;
+  width: 20%;
+  padding-bottom: 20%;
+  margin: 0 -1px -1px 0;
+
+  .cell-content {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    border: 1px solid #6D6D6D;
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  &.x {
+    .cell-content {
+      background-image: url('/build/images/cross.png');
+    }
+  }
+
+  &.o {
+    .cell-content {
+      background-image: url('/build/images/circle.png');
+    }
+  }
+}
+
+.gameover-text {
+  text-align: center;
+
+  .win {
+    color: #0000ff;
+  }
+
+  .lose {
+    color: #ff0000;
+  }
+}

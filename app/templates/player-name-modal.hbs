@@ -1,0 +1,19 @@
+{{#modal-dialog title='Player name'
+                backdrop='static'
+                customButtons=customModalButtons
+                onModalShow='onModalShow'
+                onModalHidden='removeModal'
+                saveName='saveName'
+                showCloseBtn=false}}
+    <div>
+        <div class="form-group" {{bind-attr class="isValid::has-error"}}>
+            {{input value=playerName
+                    classNames="form-control input-lg"
+                    placeholder="Enter your name"}}
+
+            {{#unless isValid}}
+                <span class="help-block">{{validationMessage}}</span>
+            {{/unless}}
+        </div>
+    </div>
+{{/modal-dialog}}

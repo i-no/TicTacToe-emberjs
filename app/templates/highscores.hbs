@@ -1,0 +1,29 @@
+<div>High Scores</div>
+<div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Winner</th>
+                <th>Game Duration</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each item in highscores}}
+                <tr>
+                    <td>0</td>
+                    <td>{{formatDate item.date}}</td>
+                    <td>
+                        {{#if item.winnerName}}
+                            <i>{{item.winnerName}}</i>
+                        {{else}}
+                            <b>Draw</b>
+                        {{/if}}
+                    </td>
+                    <td>{{formatDate item.playTime isUtc=true format="HH:mm:ss"}}</td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

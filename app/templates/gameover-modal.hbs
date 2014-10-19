@@ -1,0 +1,15 @@
+{{#modal-dialog
+    title='Game Over'
+    onModalHidden='removeModal'
+    playAgain='playAgain'
+    toMainPage='toMainPage'
+    backdrop='static'
+    showCancelBtn=false
+    showCloseBtn=false
+    customButtons=modalButtons}}
+
+    <div class="gameover-text">
+        <h1 {{bind-attr class="gameoverStatus"}}>{{gameoverText}}</h1>
+    </div>
+    {{render 'highscores'}}
+{{/modal-dialog}}
