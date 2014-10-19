@@ -1,24 +1,24 @@
 <div class="player-info">
-    <div>
-        Player name: {{player1.name}} <a href="#" {{action 'editName'}}>Edit</a>
-    </div>
+	<div>
+		Player name: {{player1.name}} <a href="#" {{action 'editName'}}>Edit</a>
+	</div>
 </div>
 
 <div class="row">
-    <div class="col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
-        <div class="game-field">
-            <div class="game-field-container">
-                {{#each rows in field.cells}}
-                    {{#each cell in rows}}
-                        {{view 'App.FieldCellView' cell=cell}}
-                    {{/each}}
-                {{/each}}
-            </div>
+	<div class="col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+		<div class="game-field">
+			<div class="game-field-container">
+				{{#each rows in field.cells}}
+					{{#each cell in rows}}
+						{{view 'App.FieldCellView' cell=cell}}
+					{{/each}}
+				{{/each}}
+			</div>
 
-            <div class="field-btns">
-                <a class="btn btn-sm btn-primary" href="#" {{action 'restartGame'}}>Restart Game</a>
-                <a class="btn btn-sm btn-primary" href="#" {{action 'showModal' 'highscores-modal'}}>View Highscores</a>
-            </div>
-        </div>
-    </div>
+			<div class="field-btns">
+				<a class="btn btn-sm btn-primary" href="#" {{action 'restartGame'}}>Restart Game</a>
+				<a class="btn btn-sm btn-primary" href="#" {{action 'showModal' 'highscores-modal'}}>View Highscores</a>
+			</div>
+		</div>
+	</div>
 </div>

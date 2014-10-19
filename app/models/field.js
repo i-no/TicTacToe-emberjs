@@ -1,55 +1,55 @@
-App.Field = Ember.Object.extend({
-    //region Properties
+App.Field = Ember.Object.extend( {
+	//region Properties
 
-    /**
-     * Field cells.
-     * @type {Array.<Array.<Cell>>}
-     */
+	/**
+	 * Field cells.
+	 * @type {Array.<Array.<Cell>>}
+	 */
 	cells: null,
 
-    /**
-     * Field size.
-     * @type {number}
-     * @default 5
-     */
+	/**
+	 * Field size.
+	 * @type {number}
+	 * @default 5
+	 */
 	size: 5,
 
-    //endregion
+	//endregion
 
-	init: function() {
+	init: function () {
 		var fieldSize = this.get( 'size' ),
-			cells = new Array( fieldSize.rows);
+			cells = new Array( fieldSize.rows );
 
 		for ( var i = 0; i < fieldSize; i++ ) {
 			cells[ i ] = new Array( fieldSize );
 
 			for ( var j = 0; j < fieldSize; j++ ) {
-				cells[ i ][ j ] = App.Cell.create({
+				cells[ i ][ j ] = App.Cell.create( {
 					row: i,
 					col: j
-				});
+				} );
 			}
 		}
 
 		this.set( 'cells', cells );
 	},
 
-    //region Methods
+	//region Methods
 
-    /**
-     * Get empty cells of field.
-     * @returns {Array.<Cell>}
-     */
-	getEmptyCells: function() {
-		return this.toArray().filter( function( item ) {
+	/**
+	 * Get empty cells of field.
+	 * @returns {Array.<Cell>}
+	 */
+	getEmptyCells: function () {
+		return this.toArray().filter( function ( item ) {
 			return item.get( 'isEmpty' );
 		} );
 	},
 
-    /**
-     * Clean field.
-     */
-	clear: function() {
+	/**
+	 * Clean field.
+	 */
+	clear: function () {
 		var cells = this.get( 'cells' );
 
 		for ( var i = 0; i < cells.length; i++ ) {
@@ -59,26 +59,26 @@ App.Field = Ember.Object.extend({
 		}
 	},
 
-    /**
-     * Check that row and column indexes are in field ranges.
-     * @param {number} row - Field row index. Zero based.
-     * @param {number} col - Field column index. Zero based.
-     * @returns {boolean}
-     */
-	isPositionValid: function( row, col ) {
+	/**
+	 * Check that row and column indexes are in field ranges.
+	 * @param {number} row - Field row index. Zero based.
+	 * @param {number} col - Field column index. Zero based.
+	 * @returns {boolean}
+	 */
+	isPositionValid: function ( row, col ) {
 		var fieldSize = this.get( 'size' );
 
 		return !( row < 0 || row >= fieldSize || col < 0 || col >= fieldSize );
 	},
 
-    /**
-     * Get field value.
-     * @throws Throws error if row or column indexes are out of field ranges.
-     * @param {number} row - Field row index. Zero based.
-     * @param {number} col - Field column index. Zero based.
-     * @returns {string|null}
-     */
-	getValue: function( row, col ) {
+	/**
+	 * Get field value.
+	 * @throws Throws error if row or column indexes are out of field ranges.
+	 * @param {number} row - Field row index. Zero based.
+	 * @param {number} col - Field column index. Zero based.
+	 * @returns {string|null}
+	 */
+	getValue: function ( row, col ) {
 		var cells = this.get( 'cells' );
 
 		if ( !this.isPositionValid( row, col ) ) {
@@ -88,14 +88,14 @@ App.Field = Ember.Object.extend({
 		return cells[ row ][ col ].get( 'value' );
 	},
 
-    /**
-     * Set field value.
-     * @throws Throws error if row or column indexes are out of field ranges.
-     * @param {number} row - Field row index. Zero based.
-     * @param {number} col - Field column index. Zero base.
-     * @param {string} value
-     */
-	setValue: function( row, col, value ) {
+	/**
+	 * Set field value.
+	 * @throws Throws error if row or column indexes are out of field ranges.
+	 * @param {number} row - Field row index. Zero based.
+	 * @param {number} col - Field column index. Zero base.
+	 * @param {string} value
+	 */
+	setValue: function ( row, col, value ) {
 		var cells = this.get( 'cells' );
 
 		if ( !this.isPositionValid( row, col ) ) {
@@ -105,11 +105,11 @@ App.Field = Ember.Object.extend({
 		cells[ row ][ col ].set( 'value', value );
 	},
 
-    /**
-     * Converts field to plain array of cells.
-     * @returns {Array.<Cell>}
-     */
-	toArray: function() {
+	/**
+	 * Converts field to plain array of cells.
+	 * @returns {Array.<Cell>}
+	 */
+	toArray: function () {
 		var result = [],
 			cells = this.get( 'cells' );
 
@@ -122,11 +122,11 @@ App.Field = Ember.Object.extend({
 		return result;
 	},
 
-    /**
-     * Get string representation of field.
-     * @returns {string}
-     */
-	toString: function() {
+	/**
+	 * Get string representation of field.
+	 * @returns {string}
+	 */
+	toString: function () {
 		var result = '',
 			cells = this.get( 'cells' );
 
@@ -141,12 +141,12 @@ App.Field = Ember.Object.extend({
 		return result;
 	},
 
-    /**
-     * Get row of field.
-     * @param {number} index - Field row index
-     * @returns {?Array.<Cell>}
-     */
-	getRow: function( index ) {
+	/**
+	 * Get row of field.
+	 * @param {number} index - Field row index
+	 * @returns {?Array.<Cell>}
+	 */
+	getRow: function ( index ) {
 		var cells = this.get( 'cells' ),
 			fieldSize = this.get( 'size' );
 
@@ -158,12 +158,12 @@ App.Field = Ember.Object.extend({
 		return cells[ index ];
 	},
 
-    /**
-     * Get column of field.
-     * @param {number} index - Field column index
-     * @returns {?Array.<Cell>}
-     */
-	getColumn: function( index ) {
+	/**
+	 * Get column of field.
+	 * @param {number} index - Field column index
+	 * @returns {?Array.<Cell>}
+	 */
+	getColumn: function ( index ) {
 		var cells = this.get( 'cells' ),
 			fieldSize = this.get( 'size' ),
 			column = [];
@@ -180,12 +180,12 @@ App.Field = Ember.Object.extend({
 		return column;
 	},
 
-    /**
-     * Get array of field diagonals of certain length.
-     * @param {number} length - Diagonals length
-     * @returns {Array.<Array.<Cell>>}
-     */
-	getDiagonals: function( length ) {
+	/**
+	 * Get array of field diagonals of certain length.
+	 * @param {number} length - Diagonals length
+	 * @returns {Array.<Array.<Cell>>}
+	 */
+	getDiagonals: function ( length ) {
 		var diagonal,
 			cells = this.get( 'cells' ),
 			z = 0,
@@ -216,5 +216,5 @@ App.Field = Ember.Object.extend({
 		return diagonals;
 	}
 
-    //endregion
-});
+	//endregion
+} );

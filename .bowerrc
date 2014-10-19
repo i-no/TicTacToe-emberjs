@@ -1,4 +1,4 @@
 {
-  "directory": "libs/vendor",
-  "json": "bower.json"
+	"directory": "libs/vendor",
+	"json": "bower.json"
 }

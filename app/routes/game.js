@@ -1,13 +1,13 @@
-App.GameRoute = Ember.Route.extend({
-	game: App.Game.create({
-		player1: App.Player.create({}),
-		player2: App.Player.create({
+App.GameRoute = Ember.Route.extend( {
+	game: App.Game.create( {
+		player1: App.Player.create( {} ),
+		player2: App.Player.create( {
 			name: 'Computer',
 			isComputer: true
-		})
-	}),
+		} )
+	} ),
 
-	model: function() {
+	model: function () {
 		var game = this.get( 'game' );
 
 		game.start();
@@ -15,7 +15,7 @@ App.GameRoute = Ember.Route.extend({
 		return game;
 	},
 
-	setupController: function( controller, model ) {
+	setupController: function ( controller, model ) {
 		var user = model.get( 'player1' );
 
 		this._super( controller, model );
@@ -26,4 +26,4 @@ App.GameRoute = Ember.Route.extend({
 
 		controller.set( 'startTime', new Date() );
 	}
-});
+} );

@@ -1,8 +1,8 @@
-App.GameoverModalController = Ember.ObjectController.extend({
+App.GameoverModalController = Ember.ObjectController.extend( {
 
 	needs: [ 'game' ],
 
-	gameoverStatus: function() {
+	gameoverStatus: function () {
 		var winner = this.get( 'model.winner' );
 
 		if ( Ember.isNone( winner ) ) return 'draw';
@@ -13,13 +13,16 @@ App.GameoverModalController = Ember.ObjectController.extend({
 		else return 'win';
 	}.property( 'model.winner' ),
 
-	gameoverText: function() {
+	gameoverText: function () {
 		var status = this.get( 'gameoverStatus' );
 
 		switch ( status ) {
-			case 'win': return 'You win!';
-			case 'lose': return 'You lose!';
-			case 'draw': return 'Draw'
+			case 'win':
+				return 'You win!';
+			case 'lose':
+				return 'You lose!';
+			case 'draw':
+				return 'Draw'
 		}
 
 		return '';
@@ -42,12 +45,12 @@ App.GameoverModalController = Ember.ObjectController.extend({
 	],
 
 	actions: {
-		playAgain: function() {
+		playAgain: function () {
 			this.get( 'controllers.game' ).send( 'playAgain' );
 		},
 
-		toMainPage: function() {
+		toMainPage: function () {
 			this.transitionToRoute( 'index' );
 		}
 	}
-});
+} );

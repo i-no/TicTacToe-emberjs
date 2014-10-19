@@ -1,4 +1,4 @@
-App.ModalDialogComponent = Ember.Component.extend({
+App.ModalDialogComponent = Ember.Component.extend( {
 	showCancelBtn: true,
 
 	showCloseBtn: true,
@@ -11,26 +11,26 @@ App.ModalDialogComponent = Ember.Component.extend({
 
 	isVisible: true,
 
-	didInsertElement: function() {
+	didInsertElement: function () {
 		this._super();
 
 		this.$( '.modal' )
-      .on( 'show.bs.modal', function() {
-        this.sendAction( 'onModalShow' );
-      }.bind( this ) )
-      .on( 'shown.bs.modal', function() {
-        this.sendAction( 'onModalShown' );
-      }.bind( this ) )
-			.on( 'hidden.bs.modal', function() {
+			.on( 'show.bs.modal', function () {
+				this.sendAction( 'onModalShow' );
+			}.bind( this ) )
+			.on( 'shown.bs.modal', function () {
+				this.sendAction( 'onModalShown' );
+			}.bind( this ) )
+			.on( 'hidden.bs.modal', function () {
 				this.sendAction( 'onModalHidden' );
 			}.bind( this ) )
-      .modal(
-      {
-        backdrop: this.get( 'backdrop' )
-      });
+			.modal(
+			{
+				backdrop: this.get( 'backdrop' )
+			} );
 	},
 
-	didIsVisibleChange: function() {
+	didIsVisibleChange: function () {
 		if ( this.get( 'isVisible' ) ) {
 			this.$( '.modal' ).modal( 'show' );
 		}
@@ -40,7 +40,7 @@ App.ModalDialogComponent = Ember.Component.extend({
 	}.observes( 'isVisible' ),
 
 	actions: {
-		customBtnClick: function( btnData ) {
+		customBtnClick: function ( btnData ) {
 			if ( Ember.isNone( btnData ) ) return;
 
 			if ( btnData.closeModal ) {
@@ -51,13 +51,13 @@ App.ModalDialogComponent = Ember.Component.extend({
 				this.sendAction( btnData.action, this );
 			}
 		},
-		ok: function() {
+		ok: function () {
 			this.set( 'isVisible', false );
 			this.sendAction( 'ok' );
 		},
-		cancel: function() {
+		cancel: function () {
 			this.set( 'isVisible', false );
 			this.sendAction( 'cancel' );
 		}
 	}
-});
+} );

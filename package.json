@@ -1,24 +1,24 @@
 {
-  "name": "TicTacToe-game",
-  "version": "0.0.1",
-  "dependencies": {
-    "connect": "*",
-    "serve-static": "*",
-    "bower": "*",
-    "gulp": "*",
-    "gulp-concat": "*",
-    "gulp-less": "*",
-    "gulp-uglify": "*",
-    "gulp-order": "*",
-    "gulp-sv2png": "*",
-    "gulp-minify-css": "*",
-    "gulp-ember-templates": "*",
-    "gulp-rename": "*"
-  },
-  "devDependencies": {
-    "gulp-jasmine": "~1.0.1"
-  },
-  "scripts": {
-    "postinstall": "bower install"
-  }
+	"name": "TicTacToe-game",
+	"version": "0.0.1",
+	"dependencies": {
+		"connect": "*",
+		"serve-static": "*",
+		"bower": "*",
+		"gulp": "*",
+		"gulp-concat": "*",
+		"gulp-less": "*",
+		"gulp-uglify": "*",
+		"gulp-order": "*",
+		"gulp-sv2png": "*",
+		"gulp-minify-css": "*",
+		"gulp-ember-templates": "*",
+		"gulp-rename": "*"
+	},
+	"devDependencies": {
+		"gulp-jasmine": "~1.0.1"
+	},
+	"scripts": {
+		"postinstall": "bower install"
+	}
 }

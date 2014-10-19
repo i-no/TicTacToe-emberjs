@@ -1,4 +1,4 @@
-App.Player = Ember.Object.extend({
+App.Player = Ember.Object.extend( {
 	name: '',
 	mark: 'X'
-});
+} );

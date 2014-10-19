@@ -1,6 +1,6 @@
-App.ApplicationRoute = Ember.Route.extend({
+App.ApplicationRoute = Ember.Route.extend( {
 	actions: {
-		showModal: function( name, model ) {
+		showModal: function ( name, model ) {
 			var controller = this.controllerFor( name );
 
 			if ( model ) {
@@ -10,14 +10,14 @@ App.ApplicationRoute = Ember.Route.extend({
 			this.render( name, {
 				into: 'application',
 				outlet: 'modal'
-			});
+			} );
 		},
 
-		removeModal: function() {
-			this.disconnectOutlet({
+		removeModal: function () {
+			this.disconnectOutlet( {
 				outlet: 'modal',
 				parentView: 'application'
-			});
+			} );
 		}
 	}
-});
+} );

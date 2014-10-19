@@ -1,4 +1,4 @@
-App.Router.map( function() {
+App.Router.map( function () {
 	this.resource( 'game' );
 	this.resource( 'notfound', { path: '/*wildcard' } );
 } );

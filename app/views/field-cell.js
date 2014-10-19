@@ -1,4 +1,4 @@
-App.FieldCellView = Ember.View.extend({
+App.FieldCellView = Ember.View.extend( {
 	template: Ember.Handlebars.compile(
 		'<div class="cell-content"></div>'
 	),
@@ -9,7 +9,7 @@ App.FieldCellView = Ember.View.extend({
 
 	cell: null,
 
-	isX: function() {
+	isX: function () {
 		var cell = this.get( 'cell' ),
 			value = '';
 
@@ -20,7 +20,7 @@ App.FieldCellView = Ember.View.extend({
 		return value.toUpperCase() === 'X';
 	}.property( 'cell.value' ),
 
-	isO: function() {
+	isO: function () {
 		var cell = this.get( 'cell' ),
 			value = '';
 
@@ -31,7 +31,7 @@ App.FieldCellView = Ember.View.extend({
 		return value.toUpperCase() === 'O';
 	}.property( 'cell.value' ),
 
-	click: function() {
+	click: function () {
 		this.get( 'controller' ).send( 'cellClick', this.get( 'cell' ) );
 	}
-});
+} );

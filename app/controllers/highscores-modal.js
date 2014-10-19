@@ -1,1 +1,1 @@
-App.HighscoresModalController = Ember.ObjectController.extend({});
+App.HighscoresModalController = Ember.ObjectController.extend( {} );

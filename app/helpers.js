@@ -1,4 +1,4 @@
-Ember.Handlebars.helper( 'formatDate', function( value, options ) {
+Ember.Handlebars.helper( 'formatDate', function ( value, options ) {
 	var date,
 		format = 'L';
 
@@ -14,4 +14,4 @@ Ember.Handlebars.helper( 'formatDate', function( value, options ) {
 	}
 
 	return date.format( format );
-});
+} );

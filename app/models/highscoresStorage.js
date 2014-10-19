@@ -1,14 +1,14 @@
-App.HighscoresStorage = Ember.Object.extend({
+App.HighscoresStorage = Ember.Object.extend( {
 	items: [],
 
 	storageKey: 'TicTacToeStorage',
 
 	maxItemsToStore: 10,
 
-	save: function() {
+	save: function () {
 		var data,
 			items = this.get( 'items' ),
-			maxItemsToStore =this.get( 'maxItemsToStore' );
+			maxItemsToStore = this.get( 'maxItemsToStore' );
 
 		if ( Ember.isEmpty( items ) ) return;
 
@@ -17,9 +17,9 @@ App.HighscoresStorage = Ember.Object.extend({
 		localStorage.setItem( this.get( 'storageKey' ), data );
 	},
 
-	load: function() {
+	load: function () {
 		var data = localStorage.getItem( this.get( 'storageKey' ) ) || '[]',
-			items = JSON.parse( data ).map( function( item ) {
+			items = JSON.parse( data ).map( function ( item ) {
 				return App.HighscoresItem.create( item );
 			} );
 
@@ -29,7 +29,7 @@ App.HighscoresStorage = Ember.Object.extend({
 		return items;
 	},
 
-	addItem: function( item ) {
+	addItem: function ( item ) {
 		var items = this.get( 'items' ),
 			maxItemsToStore = this.get( 'maxItemsToStore' );
 
@@ -44,4 +44,4 @@ App.HighscoresStorage = Ember.Object.extend({
 		this.set( 'items', items );
 		this.save();
 	}
-});
+} );

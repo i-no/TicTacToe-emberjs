@@ -1,17 +1,17 @@
-App.GameController = Ember.ObjectController.extend({
-    //region Properties
+App.GameController = Ember.ObjectController.extend( {
+	//region Properties
 
-    startTime: moment(),
+	startTime: moment(),
 
-    //endregion
+	//endregion
 
-    //region Methods
+	//region Methods
 
-    /**
-     *
-     * @param {Cell} cell
-     */
-    makeMove: function( cell ) {
+	/**
+	 *
+	 * @param {Cell} cell
+	 */
+	makeMove: function ( cell ) {
 		var game = this.get( 'model' ),
 			player = game.get( 'currentPlayer' );
 
@@ -29,17 +29,17 @@ App.GameController = Ember.ObjectController.extend({
 		}
 	},
 
-    /**
-     *
-     */
-	endGame: function() {
+	/**
+	 *
+	 */
+	endGame: function () {
 		var winner = null,
 			game = this.get( 'model' ),
 			currentPlayer = game.get( 'currentPlayer' ),
 			field = game.get( 'field' ),
 			startTime = this.get( 'startTime' ),
 			endTime = moment(),
-			gameOverData = Ember.Object.create({
+			gameOverData = Ember.Object.create( {
 				winner: null
 			} );
 
@@ -48,39 +48,39 @@ App.GameController = Ember.ObjectController.extend({
 		}
 
 		gameOverData.set( 'winner', winner );
-		this.saveHighscores( App.HighscoresItem.create({
+		this.saveHighscores( App.HighscoresItem.create( {
 			date: Date.now(),
 			winnerName: Ember.isEmpty( winner ) ? null : winner.get( 'name' ),
 			playTime: endTime.diff( startTime )
-		}) );
+		} ) );
 
 		this.send( 'showModal', 'gameover-modal', gameOverData );
 	},
 
-    /**
-     *
-     * @throws Throws error inf
-     * @param {HighscoresItem} highscores
-     */
-	saveHighscores: function( highscores ) {
+	/**
+	 *
+	 * @throws Throws error inf
+	 * @param {HighscoresItem} highscores
+	 */
+	saveHighscores: function ( highscores ) {
 		var storage = App.get( 'highscoresStorage' );
 
 		if ( Ember.isNone( highscores ) ) {
 			throw '';
 		}
 
-        storage.addItem( highscores );
+		storage.addItem( highscores );
 	},
 
-    //endregion
+	//endregion
 
-    //region Observers
+	//region Observers
 
-    /**
-     * Observes currentPlayer field state. If current player is computer player, then select any empty field cell
-     * and make a move.
-     */
-    didCurrentPlayerChange: function() {
+	/**
+	 * Observes currentPlayer field state. If current player is computer player, then select any empty field cell
+	 * and make a move.
+	 */
+	didCurrentPlayerChange: function () {
 		var currentPlayer = this.get( 'model.currentPlayer' ),
 			computerPlayer = this.get( 'model.player2' ),
 			field = this.get( 'model.field' ),
@@ -93,36 +93,36 @@ App.GameController = Ember.ObjectController.extend({
 		}
 	}.observes( 'model.currentPlayer' ),
 
-    //endregion
+	//endregion
 
-    //region Actions
+	//region Actions
 
-    actions: {
-		cellClick: function( cell ) {
+	actions: {
+		cellClick: function ( cell ) {
 			this.makeMove( cell );
 		},
 
-		playAgain: function() {
+		playAgain: function () {
 			this.get( 'model' ).start();
 			this.set( 'startTime', moment() );
 		},
 
-		restartGame: function() {
+		restartGame: function () {
 			if ( confirm( 'Are you sure you want to restart the game?' ) ) {
 				this.send( 'playAgain' );
 			}
 		},
 
-		editName: function() {
-            var playerName = this.get( 'player1.name' ),
-                modalData = {
-                    player: this.get( 'player1' ),
-                    isNameRequired: Ember.isEmpty( playerName )
-                };
+		editName: function () {
+			var playerName = this.get( 'player1.name' ),
+				modalData = {
+					player: this.get( 'player1' ),
+					isNameRequired: Ember.isEmpty( playerName )
+				};
 
 			this.send( 'showModal', 'player-name-modal', modalData );
 		}
 	}
 
-    //endregion
-});
+	//endregion
+} );
