@@ -7,7 +7,8 @@ var gulp = require( 'gulp' ),
 	lessBuild = require( 'gulp-less' ),
 	emberTemplates = require( 'gulp-ember-templates' ),
 	svg2png = require( 'gulp-svg2png' ),
-	order = require( 'gulp-order' );
+	order = require( 'gulp-order' ),
+	karma = require( 'gulp-karma' );
 
 gulp.task( 'svg2png', function () {
 	gulp.src( './images/svg/*.svg' )
@@ -57,6 +58,25 @@ gulp.task( 'js', function () {
 } );
 
 gulp.task( 'app', [ 'templates', 'js' ] );
+
+gulp.task('tests', function() {
+	// Be sure to return the stream
+	return gulp.src([
+			'libs/vendor/jquery/dist/jquery.min.js',
+			'libs/vendor/handlebars/handlebars.min.js',
+			'libs/vendor/ember/ember.min.js',
+			'libs/vendor/moment/min/moment.min.js',
+			'libs/vendor/bootstrap/dist/js/bootstrap.min.js',
+			'build/js/app.js',
+			'build/js/templates.js',
+			'tests/**/*.js'
+		])
+		.pipe(karma({
+			configFile: 'karma.conf.js',
+			action: 'run'
+		}))
+		.on( 'error', console.error.bind(console) );
+});
 
 gulp.task( 'watch', function () {
 	var lessWatcher = gulp.watch( 'app/styles/**/*.less', [ 'less' ] );
