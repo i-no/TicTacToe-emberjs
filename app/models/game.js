@@ -112,7 +112,7 @@ App.Game = Ember.Object.extend( {
 		//check diagonals
 		if ( !Ember.isEmpty( diagonals ) ) {
 			for ( i = 0; i < diagonals.length; i++ ) {
-				if ( this.checkArray( diagonals[ i ] ) ) return true;``
+				if ( this.checkArray( diagonals[ i ] ) ) return true;
 			}
 		}
 

@@ -125,6 +125,24 @@ App.Field = Ember.Object.extend( {
 		cells[ row ][ col ].set( 'value', value );
 	},
 
+	setValues: function( values ) {
+		var cells = this.get( 'cells' ),
+			fieldSize = this.get( 'size' );
+
+		for ( var i = 0; i < fieldSize; i++ ) {
+			for ( var j = 0; j < fieldSize; j++ ) {
+				if ( i < values.length && j < values[ i ].length ) {
+					cells[ i ][ j ].set( 'value', values[ i ][ j ] );
+				}
+				else {
+					cells[ i ][ j ].set( 'value', null );
+				}
+			}
+		}
+
+		this.set( 'cells', cells );
+	},
+
 	/**
 	 * Converts field to plain array of cells.
 	 *
@@ -177,7 +195,7 @@ App.Field = Ember.Object.extend( {
 		var cells = this.get( 'cells' ),
 			fieldSize = this.get( 'size' );
 
-		if ( index >= fieldSize ) {
+		if ( index < 0 || index >= fieldSize ) {
 			throw 'Invalid row index: ' + index;
 		}
 
@@ -197,7 +215,7 @@ App.Field = Ember.Object.extend( {
 			fieldSize = this.get( 'size' ),
 			column = [];
 
-		if ( index >= fieldSize ) {
+		if ( index < 0 || index >= fieldSize ) {
 			throw 'Invalid column index: ' + index;
 		}
 
