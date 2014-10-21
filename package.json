@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "gulp-karma": "0.0.4",
+    "gulp-plumber": "^0.6.6",
     "karma": "^0.12.24",
     "karma-jasmine": "^0.1.5",
     "karma-phantomjs-launcher": "^0.1.4"

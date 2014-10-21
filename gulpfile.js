@@ -8,16 +8,19 @@ var gulp = require( 'gulp' ),
 	emberTemplates = require( 'gulp-ember-templates' ),
 	svg2png = require( 'gulp-svg2png' ),
 	order = require( 'gulp-order' ),
-	karma = require( 'gulp-karma' );
+	karma = require( 'gulp-karma' ),
+	plumber = require( 'gulp-plumber' );
 
 gulp.task( 'svg2png', function () {
 	gulp.src( './images/svg/*.svg' )
+		.pipe( plumber() )
 		.pipe( svg2png() )
 		.pipe( gulp.dest( './build/images' ) );
 } );
 
 gulp.task( 'less', function () {
 	gulp.src( './app/styles/**/*.less' )
+		.pipe( plumber() )
 		.pipe( lessBuild( {
 			paths: [ path.join( __dirname, 'less', 'includes' ) ]
 		} ) )
@@ -30,6 +33,7 @@ gulp.task( 'less', function () {
 
 gulp.task( 'templates', function () {
 	gulp.src( './app/templates/**/*.hbs' )
+		.pipe( plumber() )
 		.pipe( emberTemplates( {
 			name: {
 				replace: 'components\\',
@@ -46,6 +50,7 @@ gulp.task( 'templates', function () {
 
 gulp.task( 'js', function () {
 	gulp.src( './app/**/*.js' )
+		.pipe( plumber() )
 		.pipe( order( [
 			'app.js',
 			'routes.js'
@@ -71,6 +76,7 @@ gulp.task('tests', function() {
 			'build/js/templates.js',
 			'tests/**/*.js'
 		])
+		.pipe( plumber() )
 		.pipe(karma({
 			configFile: 'karma.conf.js',
 			action: 'run'
