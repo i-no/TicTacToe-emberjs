@@ -16,7 +16,7 @@ App.Player = Ember.Object.extend( {
 	 *
 	 * @property mark
 	 * @type {string}
-	 * @default 'X'
+	 * @default {null}
 	 */
-	mark: 'X'
+	mark: null
 } );

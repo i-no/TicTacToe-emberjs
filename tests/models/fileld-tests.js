@@ -2,15 +2,41 @@ describe( 'App.Field testing: ', function() {
 	var field;
 
 	function isArraysEqual( cellArray, array ) {
+		var val1, val2;
+
 		if ( cellArray.length !== array.length ) return false;
 
 		for ( var i = 0; i < cellArray.length; i++ ) {
-			if ( cellArray[ i ].get( 'value' ).toUpperCase() !== array[ i ].toUpperCase() ) {
+			val1 = cellArray[ i ].get( 'value' );
+			val2 = array[ i ];
+
+			if ( typeof val1 === 'string' ) {
+				val1 = val1.toUpperCase();
+			}
+
+			if ( typeof val2 === 'string' ) {
+				val2 = val2.toUpperCase();
+			}
+
+			if ( val1 !== val2 ) {
 				return false;
 			}
 		}
 
 		return true;
+	}
+
+	function containsArray( cellArray, arrayToFind ) {
+		var contains = false;
+
+		for ( var i = 0; i < cellArray.length; i++ ) {
+			if ( isArraysEqual( cellArray[i], arrayToFind ) ) {
+				contains = true;
+				break;
+			}
+		}
+
+		return contains;
 	}
 
 	beforeEach( function() {
@@ -168,7 +194,7 @@ describe( 'App.Field testing: ', function() {
 		diagonals = field.getDiagonals( 4 );
 
 		for ( var i = 0; i < validResult.length; i++ ) {
-			expect( isArraysEqual( diagonals[ i ], validResult[ i ] ) ).toBeTruthy();;
+			expect( containsArray( diagonals, validResult[ i ] ) ).toBeTruthy();;
 		}
 	})
 } );

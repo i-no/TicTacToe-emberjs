@@ -14,6 +14,7 @@ App.GameRoute = Ember.Route.extend( {
 	model: function () {
 		var game = this.get( 'game' );
 
+		game.reset();
 		game.start();
 
 		return game;

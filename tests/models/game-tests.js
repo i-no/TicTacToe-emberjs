@@ -44,7 +44,7 @@ describe( 'App.Game testing: ', function() {
 				[ 'x', 'o', 'x', 'x', 'o' ],
 				[ 'o', 'x', 'x', 'o', 'x' ],
 				[ 'x', null, 'o', 'o', 'o' ],
-				[ 'o', 'x', 'x', 'o', 'o' ],
+				[ 'o', 'x', 'x', null, 'o' ],
 				[ 'o', 'x', 'o', 'o', null ]
 			],
 			[
@@ -57,7 +57,7 @@ describe( 'App.Game testing: ', function() {
 			[
 				[ 'x', 'o', 'x', 'x', 'o' ],
 				[ 'o', 'x', 'x', 'o', 'x' ],
-				[ 'x', 'o', 'o', 'o', 'o' ],
+				[ 'x', 'o', 'o', 'o', null ],
 				[ 'o', 'x', 'x', 'x', 'o' ],
 				[ 'o', 'x', 'o', 'o', null ]
 			],
@@ -98,19 +98,29 @@ describe( 'App.Game testing: ', function() {
 		game = App.Game.create({});
 	});
 
-	it( 'start() function should clear field and init players', function() {
+	it( 'start() function should select who plays first and init players marks', function() {
+		game.set( 'player1', App.Player.create( { name: 'player1' } ) );
+		game.set( 'player2', App.Player.create( { name: 'player2' } ) );
+		game.start();
+
+		expect( game.get( 'currentPlayer' ) ).not.toBeNull();
+		expect( game.get( 'player1.mark' ) ).not.toBeNull();
+		expect( game.get( 'player2.mark' ) ).not.toBeNull();
+	});
+
+	it( 'reset() function should clear field and reset current player', function() {
 		var field = game.get( 'field' ),
-			cells = noWinnerFields[0],
 			fieldSize = field.get( 'size' );
 
-		field.setValues( cells );
-		game.set( 'field', field );
-		game.clear();
+		game.set( 'player1', App.Player.create( { name: 'player1' } ) );
+		game.set( 'player2', App.Player.create( { name: 'player2' } ) );
+		game.set( 'currentPlayer', game.get( 'player1' ) );
+		field.setValues( noWinnerFields[0] );
 
-		expect( game.get( 'player1' ) ).not.toBeNull();
-		expect( game.get( 'player2' ) ).not.toBeNull();
-		expect( game.get( 'currentPlayer' ) ).not.toBeNull();
+		game.reset();
+
 		expect( game.get( 'field' ).getEmptyCells().length ).toEqual( fieldSize * fieldSize );
+		expect( game.get( 'currentPlayer' ) ).toBeNull();
 	});
 
 	it( 'hasWinner() function should return true if there are marksToWin marks of the same type' +
@@ -121,18 +131,21 @@ describe( 'App.Game testing: ', function() {
 		for ( i = 0; i < winnerFields.length; i++ ) {
 			field.setValues( winnerFields[i] );
 			game.set( 'field', field );
+
 			expect( game.hasWinner() ).toBeTruthy();
 		}
 
 		for ( i = 0; i < noWinnerFields.length; i++ ) {
 			field.setValues( noWinnerFields[i] );
 			game.set( 'field', field );
+
 			expect( game.hasWinner() ).toBeFalsy();
 		}
 
 		for ( i = 0; i < fieldsWithDraw.length; i++ ) {
 			field.setValues( fieldsWithDraw[i] );
 			game.set( 'field', field );
+
 			expect( game.hasWinner() ).toBeFalsy();
 		}
 	} );

@@ -47,6 +47,12 @@ App.Game = Ember.Object.extend( {
 	 */
 	marksToWin: 4,
 
+	/**
+	 * @property startTime
+	 * @type {Moment}
+	 */
+	startTime: null,
+
 	//endregion
 
 	//region Methods
@@ -83,7 +89,6 @@ App.Game = Ember.Object.extend( {
 			}
 
 			if ( count >= marksToWin ) {
-				console.log( data );
 				return true;
 			}
 		}
@@ -134,22 +139,31 @@ App.Game = Ember.Object.extend( {
 	},
 
 	/**
-	 * Initializes game. This method clears game field and selects a player who plays first.
+	 * Initializes game. This method selects a player who plays first.
 	 *
 	 * @method start
 	 */
 	start: function () {
 		var players = [ this.get( 'player1' ), this.get( 'player2' ) ],
-			field = this.get( 'field' ),
 			index = Math.round( Math.random() ), //select who plays first
 			currentPlayer = players[ index ];
-
-		field.clear();
 
 		currentPlayer.set( 'mark', 'X' );
 		players[ index === 0 ? 1 : 0 ].set( 'mark', 'O' );
 
 		this.set( 'currentPlayer', currentPlayer );
+	},
+
+	/**
+	 * Clear game field and reset {{#crossLink "Game/currentPlayer:property"}}currentPlayer{{/crossLink}} property.
+	 *
+	 * @method reset
+	 */
+	reset: function() {
+		var field = this.get( 'field' );
+
+		field.clear();
+		this.set( 'currentPlayer', null );
 	},
 
 	/**

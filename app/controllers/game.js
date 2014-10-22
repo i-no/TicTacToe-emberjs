@@ -3,16 +3,6 @@
  * @class GameController
  */
 App.GameController = Ember.ObjectController.extend( {
-	//region Properties
-
-	/**
-	 * @property startTime
-	 * @type {Moment}
-	 */
-	startTime: moment(),
-
-	//endregion
-
 	//region Methods
 
 	/**
@@ -46,7 +36,7 @@ App.GameController = Ember.ObjectController.extend( {
 			game = this.get( 'model' ),
 			currentPlayer = game.get( 'currentPlayer' ),
 			field = game.get( 'field' ),
-			startTime = this.get( 'startTime' ),
+			startTime = game.get( 'startTime' ),
 			endTime = moment(),
 			gameOverData = Ember.Object.create( {
 				winner: null
@@ -113,8 +103,10 @@ App.GameController = Ember.ObjectController.extend( {
 		},
 
 		playAgain: function () {
-			this.get( 'model' ).start();
-			this.set( 'startTime', moment() );
+			var game = this.get( 'model' );
+
+			game.reset();
+			game.start();
 		},
 
 		restartGame: function () {
