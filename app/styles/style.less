@@ -1,10 +1,24 @@
 .header {
   text-align: center;
+  background-color: #1f1f1f;
+
+  h1 {
+    margin-bottom: 20px;
+  }
+
+  a {
+    color: #f1f1f1;
+
+    &:hover {
+      text-decoration: none;
+      color: #d0d0d0;
+    }
+  }
 }
 
 .main-menu-btn {
-  margin: 20px auto;
-  max-width: 200px;
+  margin: 40px auto;
+  max-width: 250px;
 }
 
 .game-field {
@@ -16,6 +30,7 @@
 
 .game-field-container {
   margin-left: 5px;
+  overflow: visible;
 }
 
 .field-cell {
@@ -50,12 +65,19 @@
 
 .gameover-text {
   text-align: center;
+  font-size: 26px;
+  padding: 0.3em 0;
+  margin-bottom: 1em;
+  font-weight: bold;
+  border: 3px solid #fff;
 
-  .win {
-    color: #0000ff;
+  &.win {
+    color: #4486FF;
+    border-color: #4486FF;
   }
 
-  .lose {
-    color: #ff0000;
+  &.lose {
+    color: #FF4444;
+    border-color: #FF4444;
   }
 }

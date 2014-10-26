@@ -8,8 +8,11 @@
 	showCloseBtn=false
 	customButtons=modalButtons}}
 
-	<div class="gameover-text">
-		<h1 {{bind-attr class="gameoverStatus"}}>{{gameoverText}}</h1>
+	<div {{bind-attr class=":gameover-text gameoverStatus"}}>
+		{{gameoverText}}
+	</div>
+	<div>
+		<h4>Game Results</h4>
 	</div>
 	{{render 'game-results'}}
 {{/modal-dialog}}

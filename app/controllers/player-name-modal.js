@@ -58,6 +58,9 @@ App.PlayerNameModalController = Ember.ObjectController.extend( {
 			this.set( 'isValid', true );
 			this.set( 'playerName', this.get( 'player.name' ) );
 		},
+		onModalShown: function() {
+
+		},
 		saveName: function ( modal ) {
 			if ( this.validateName() ) {
 				this.set( 'player.name', this.get( 'playerName' ) );
