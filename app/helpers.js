@@ -15,3 +15,7 @@ Ember.Handlebars.helper( 'formatDate', function ( value, options ) {
 
 	return date.format( format );
 } );
+
+Ember.Handlebars.helper( 'index', function ( value, options ) {
+	return value + 1;
+} );

@@ -64,12 +64,14 @@ gulp.task( 'js', function () {
 
 gulp.task( 'app', [ 'templates', 'js' ] );
 
+gulp.task( 'build-app', [ 'svg2png', 'less', 'templates', 'js' ] );
+
 gulp.task('tests', function() {
 	// Be sure to return the stream
 	return gulp.src([
 			'libs/vendor/jquery/dist/jquery.min.js',
 			'libs/vendor/handlebars/handlebars.min.js',
-			'libs/vendor/ember/ember.min.js',
+			'libs/vendor/ember/ember.js',
 			'libs/vendor/moment/min/moment.min.js',
 			'libs/vendor/bootstrap/dist/js/bootstrap.min.js',
 			'build/js/app.js',

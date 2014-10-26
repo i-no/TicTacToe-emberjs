@@ -10,7 +10,7 @@
     "gulp-less": "*",
     "gulp-uglify": "*",
     "gulp-order": "*",
-    "gulp-sv2png": "*",
+    "gulp-svg2png": "*",
     "gulp-minify-css": "*",
     "gulp-ember-templates": "*",
     "gulp-rename": "*"
