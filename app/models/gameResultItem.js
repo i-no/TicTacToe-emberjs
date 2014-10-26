@@ -1,8 +1,8 @@
 /**
  * @module Models
- * @class HighscoresItem
+ * @class GameResultItem
  */
-App.HighscoresItem = Ember.Object.extend( {
+App.GameResultItem = Ember.Object.extend( {
 	/**
 	 * Game winner name.
 	 *

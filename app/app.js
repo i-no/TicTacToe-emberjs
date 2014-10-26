@@ -4,9 +4,9 @@ Ember.Application.initializer( {
 	name: 'appInit',
 
 	initialize: function ( container, application ) {
-		var storage = App.HighscoresStorage.create( {} );
+		var storage = App.GameResultStorage.create( {} );
 
 		storage.load();
-		application.set( 'highscoresStorage', storage );
+		application.set( 'gameResultsStorage', storage );
 	}
 } );

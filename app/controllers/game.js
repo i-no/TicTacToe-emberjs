@@ -47,7 +47,7 @@ App.GameController = Ember.ObjectController.extend( {
 		}
 
 		gameOverData.set( 'winner', winner );
-		this.saveHighscores( App.HighscoresItem.create( {
+		this.saveGameResult( App.GameResultItem.create( {
 			date: Date.now(),
 			winnerName: Ember.isEmpty( winner ) ? null : winner.get( 'name' ),
 			playTime: endTime.diff( startTime )
@@ -57,19 +57,20 @@ App.GameController = Ember.ObjectController.extend( {
 	},
 
 	/**
-	 * Save highscore in storage.
+	 * Save game result in storage.
 	 *
-	 * @throws Throws error in <tt>highscores</tt> parameter is empty.
-	 * @param {HighscoresItem} highscores
+	 * @method saveGameResult
+	 * @throws Throws error if <tt>gameResult</tt> parameter is empty.
+	 * @param {GameResultItem} gameResult
 	 */
-	saveHighscores: function ( highscores ) {
-		var storage = App.get( 'highscoresStorage' );
+	saveGameResult: function ( gameResult ) {
+		var storage = App.get( 'gameResultsStorage' );
 
-		if ( Ember.isNone( highscores ) ) {
-			throw 'Parameter "highscores" should not be empty.';
+		if ( Ember.isNone( gameResult ) ) {
+			throw 'Parameter "gameResult" should not be empty.';
 		}
 
-		storage.addItem( highscores );
+		storage.addItem( gameResult );
 	},
 
 	//endregion

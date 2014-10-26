@@ -1,13 +1,13 @@
 /**
  * @module Models
- * @class HighscoresStorage
+ * @class GameResultStorage
  */
-App.HighscoresStorage = Ember.Object.extend( {
+App.GameResultStorage = Ember.Object.extend( {
 	/**
-	 * List of highscores.
+	 * List of last played game results.
 	 *
 	 * @property items
-	 * @type {HighscoresItem[]}
+	 * @type {GameResultItem[]}
 	 */
 	items: [],
 
@@ -29,7 +29,7 @@ App.HighscoresStorage = Ember.Object.extend( {
 	maxItemsToStore: 10,
 
 	/**
-	 * Save highscores in web storage.
+	 * Save last played game results in web storage.
 	 *
 	 * @method save
 	 */
@@ -46,15 +46,15 @@ App.HighscoresStorage = Ember.Object.extend( {
 	},
 
 	/**
-	 * Load highscore items from storage.
+	 * Load last played game results from storage.
 	 *
 	 * @method load
-	 * @return {HighscoresItem[]}
+	 * @return {GameResultItem[]}
 	 */
 	load: function () {
 		var data = localStorage.getItem( this.get( 'storageKey' ) ) || '[]',
 			items = JSON.parse( data ).map( function ( item ) {
-				return App.HighscoresItem.create( item );
+				return App.GameResultItem.create( item );
 			} );
 
 
@@ -64,10 +64,10 @@ App.HighscoresStorage = Ember.Object.extend( {
 	},
 
 	/**
-	 * Add highscore item to storage.
+	 * Add game result item to storage.
 	 *
 	 * @method addItem
-	 * @param {HighscoresItem} item Item to add.
+	 * @param {GameResultItem} item Item to add.
 	 */
 	addItem: function ( item ) {
 		var items = this.get( 'items' ),
