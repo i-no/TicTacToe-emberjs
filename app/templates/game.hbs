@@ -1,12 +1,41 @@
 <div class="player-info">
 	<div>
-		<label>Player name:</label>
-		<span>{{player1.name}}</span> <a href="#" class="btn btn-default" {{action 'editName'}}>Edit</a>
+
 	</div>
 </div>
 
 <div class="row">
-	<div class="col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+	<div class="col-sm-5 col-sm-push-7">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="block-label">Player name</div>
+				<div>
+					<span class="player-name">{{player1.name}}</span>
+					<a href="#" class="hidden-xs" {{action 'editName'}}><span class="glyphicon glyphicon-pencil"></span></a>
+					<a href="#" class="btn btn-default visible-xs-block" {{action 'editName'}}><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6">
+				<div class="block-label">You plays</div>
+				<div>
+
+				</div>
+			</div>
+			<div class="col-xs-6">
+				<div class="block-label">Computer</div>
+				<div>
+
+				</div>
+			</div>
+		</div>
+		<div>
+			<a class="btn btn-sm btn-primary" href="#" {{action 'restartGame'}}>Restart Game</a>
+			<a class="btn btn-sm btn-primary" href="#" {{action 'showModal' 'game-results-modal'}}>View History</a>
+		</div>
+	</div>
+	<div class="col-sm-7 col-xs-12 col-sm-pull-5">
 		<div class="game-field">
 			<div class="game-field-container">
 				{{#each rows in field.cells}}
@@ -14,11 +43,6 @@
 						{{view 'App.FieldCellView' cell=cell}}
 					{{/each}}
 				{{/each}}
-			</div>
-
-			<div class="field-btns">
-				<a class="btn btn-sm btn-primary" href="#" {{action 'restartGame'}}>Restart Game</a>
-				<a class="btn btn-sm btn-primary" href="#" {{action 'showModal' 'game-results-modal'}}>View Highscores</a>
 			</div>
 		</div>
 	</div>
