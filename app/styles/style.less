@@ -20,6 +20,16 @@
   padding-top: 20px;
 }
 
+.footer {
+  padding: 50px;
+}
+
+.main-menu-header {
+  color: #999;
+  text-transform: uppercase;
+  text-decoration: underline;
+}
+
 .main-menu-btn {
   margin: 40px auto;
   max-width: 250px;
@@ -95,4 +105,52 @@
 .player-name {
   font-size: 26px;
   margin-right: 10px;
+}
+
+.edit-name-btn {
+  font-size: 20px;
+  color: #000;
+}
+
+.game-info {
+  .player-name-block, .players-marks-block {
+    margin-bottom: 20px;
+
+    .block-label {
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.players-marks-block {
+  overflow: auto;
+
+  & > div {
+    float: left;
+
+    &:first-child {
+      margin: 0 20px 10px 0;
+    }
+  }
+
+  .player-mark {
+    width: 40px;
+    height: 40px;
+    background-size: contain;
+    margin: 0 auto;
+
+    &.X {
+      background-image: url(/build/images/cross.png);
+    }
+
+    &.O {
+      background-image: url(/build/images/circle.png);
+    }
+  }
+}
+
+.game-btns-block {
+  & > div {
+    margin: 10px 0;
+  }
 }
