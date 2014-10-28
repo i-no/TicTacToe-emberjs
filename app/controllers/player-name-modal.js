@@ -59,13 +59,20 @@ App.PlayerNameModalController = Ember.ObjectController.extend( {
 			this.set( 'playerName', this.get( 'player.name' ) );
 		},
 		onModalShown: function() {
+			var modal = this.get( 'modal' );
 
+			modal.$( 'input' ).focus();
 		},
-		saveName: function ( modal ) {
+		saveName: function () {
+			var modal = this.get( 'modal' );
+
 			if ( this.validateName() ) {
 				this.set( 'player.name', this.get( 'playerName' ) );
 				modal.set( 'isVisible', false );
 			}
+		},
+		submit: function() {
+			this.send( 'saveName' );
 		}
 	}
 } );

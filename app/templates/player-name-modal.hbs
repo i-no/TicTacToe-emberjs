@@ -1,4 +1,5 @@
 {{#modal-dialog
+	componentName="modal"
 	title='Player name'
 	backdrop='static'
 	customButtons=customModalButtons
@@ -7,14 +8,16 @@
 	saveName='saveName'
 	showCloseBtn=false}}
 	<div>
-		<div class="form-group" {{bind-attr class="isValid::has-error"}}>
-			{{input value=playerName
-					classNames="form-control input-lg"
-					placeholder="Enter your name"}}
+		<form {{action "submit" on="submit"}}>
+			<div class="form-group" {{bind-attr class="isValid::has-error"}}>
+				{{input value=playerName
+						classNames="form-control input-lg"
+						placeholder="Enter your name"}}
 
-			{{#unless isValid}}
-				<span class="help-block">{{validationMessage}}</span>
-			{{/unless}}
-		</div>
+				{{#unless isValid}}
+					<span class="help-block">{{validationMessage}}</span>
+				{{/unless}}
+			</div>
+		</form>
 	</div>
 {{/modal-dialog}}

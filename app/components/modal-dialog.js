@@ -15,6 +15,17 @@ App.ModalDialogComponent = Ember.Component.extend( {
 
 	isVisible: true,
 
+	init: function() {
+		var componentName = this.get( 'componentName' ),
+			controller = this.get( 'targetObject' );
+
+		this._super.apply( this, arguments );
+
+		if ( !Ember.isEmpty( componentName ) && !Ember.isNone( controller ) ) {
+			controller.set( componentName, this );
+		}
+	},
+
 	didInsertElement: function () {
 		this._super();
 
@@ -40,6 +51,7 @@ App.ModalDialogComponent = Ember.Component.extend( {
 		}
 		else {
 			this.$( '.modal' ).modal( 'hide' );
+			this.isVisible = true;
 		}
 	}.observes( 'isVisible' ),
 
@@ -52,7 +64,7 @@ App.ModalDialogComponent = Ember.Component.extend( {
 			}
 
 			if ( typeof btnData.action === 'string' ) {
-				this.sendAction( btnData.action, this );
+				this.sendAction( btnData.action );
 			}
 		},
 		ok: function () {
@@ -62,6 +74,9 @@ App.ModalDialogComponent = Ember.Component.extend( {
 		cancel: function () {
 			this.set( 'isVisible', false );
 			this.sendAction( 'cancel' );
+		},
+		submit: function() {
+			console.log( 'submit' );
 		}
 	}
 } );
