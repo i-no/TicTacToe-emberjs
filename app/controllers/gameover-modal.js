@@ -1,6 +1,8 @@
 /**
  * @module Controllers
  * @class GameoverModalController
+ *
+ * @requires GameController
  */
 App.GameoverModalController = Ember.ObjectController.extend( {
 	/**
@@ -9,7 +11,9 @@ App.GameoverModalController = Ember.ObjectController.extend( {
 	needs: [ 'game' ],
 
 	/**
-	 * @property gameoverStatus
+	 * Status of the game.
+	 *
+	 * @property gameoverStatus Returns 'win', 'lose' or 'draw' status.
 	 * @type {string}
 	 */
 	gameoverStatus: function () {
@@ -24,6 +28,8 @@ App.GameoverModalController = Ember.ObjectController.extend( {
 	}.property( 'model.winner' ),
 
 	/**
+	 * Text displayed when player win, lose or game ends in a draw.
+	 *
 	 * @property gameoverText
 	 * @type {string}
 	 */
@@ -42,6 +48,12 @@ App.GameoverModalController = Ember.ObjectController.extend( {
 		return '';
 	}.property( 'gameoverStatus' ),
 
+	/**
+	 * List of buttons for modal dialog.
+	 *
+	 * @property modalButtons
+	 * @type {Object[]}
+	 */
 	modalButtons: [
 		{
 			title: 'Play again',

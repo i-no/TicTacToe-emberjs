@@ -49,7 +49,7 @@ App.Game = Ember.Object.extend( {
 
 	/**
 	 * @property startTime
-	 * @type {Moment}
+	 * @type {Moment|null}
 	 */
 	startTime: null,
 
@@ -139,7 +139,7 @@ App.Game = Ember.Object.extend( {
 	},
 
 	/**
-	 * Initializes game. This method selects a player who plays first.
+	 * Initializes game. This method selects a player who plays first and init game timer.
 	 *
 	 * @method start
 	 */
@@ -152,6 +152,7 @@ App.Game = Ember.Object.extend( {
 		players[ index === 0 ? 1 : 0 ].set( 'mark', 'O' );
 
 		this.set( 'currentPlayer', currentPlayer );
+		this.set( 'startTime', moment() );
 	},
 
 	/**
@@ -164,6 +165,7 @@ App.Game = Ember.Object.extend( {
 
 		field.clear();
 		this.set( 'currentPlayer', null );
+		this.set( 'startTime', null );
 	},
 
 	/**

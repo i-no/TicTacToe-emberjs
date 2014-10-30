@@ -6,9 +6,11 @@ App.GameController = Ember.ObjectController.extend( {
 	//region Methods
 
 	/**
+	 * Set a mark of current player in a field cell and check that game is over or not. If game is not over,
+	 * then turn goes to the next playes. Otherwise we end the game and save game result.
 	 *
 	 * @method makeMove
-	 * @param {Cell} cell
+	 * @param {Cell} cell Field cell to set a mark.
 	 */
 	makeMove: function ( cell ) {
 		var game = this.get( 'model' ),
@@ -29,6 +31,8 @@ App.GameController = Ember.ObjectController.extend( {
 	},
 
 	/**
+	 * Generate game result data, save it and open game over modal dialog.
+	 *
 	 * @method endGame
 	 */
 	endGame: function () {
@@ -99,10 +103,21 @@ App.GameController = Ember.ObjectController.extend( {
 	//region Actions
 
 	actions: {
+		/**
+		 * Fired when user click a field cell.
+		 *
+		 * @event cellClick
+		 * @param {Cell} cell Cell that was clicked.
+		 */
 		cellClick: function ( cell ) {
 			this.makeMove( cell );
 		},
 
+		/**
+		 * Fired when we need to restart the game.
+		 *
+		 * @event playAgain
+		 */
 		playAgain: function () {
 			var game = this.get( 'model' );
 
@@ -110,12 +125,22 @@ App.GameController = Ember.ObjectController.extend( {
 			game.start();
 		},
 
+		/**
+		 * Fired when user click "Restart game" button
+		 *
+		 * @event restartGame
+		 */
 		restartGame: function () {
 			if ( confirm( 'Are you sure you want to restart the game?' ) ) {
 				this.send( 'playAgain' );
 			}
 		},
 
+		/**
+		 * Fired when user click "Edit name" button.
+		 *
+		 * @event editName
+		 */
 		editName: function () {
 			var playerName = this.get( 'player1.name' ),
 				modalData = {
@@ -124,6 +149,13 @@ App.GameController = Ember.ObjectController.extend( {
 				};
 
 			this.send( 'showModal', 'player-name-modal', modalData );
+		},
+		playerNameModalClosed: function() {
+			var game = this.get( 'model' );
+
+			if ( Ember.isNone( game.get( 'startTime') ) ) {
+				game.start();
+			}
 		}
 	}
 

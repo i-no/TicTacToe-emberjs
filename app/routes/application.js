@@ -4,6 +4,13 @@
  */
 App.ApplicationRoute = Ember.Route.extend( {
 	actions: {
+		/**
+		 * Show modal dialog.
+		 *
+		 * @method showModal
+		 * @param {string} name Modal dialog name to show.
+		 * @param {object} model Data for modal dialog controller.
+		 */
 		showModal: function ( name, model ) {
 			var controller = this.controllerFor( name );
 
@@ -17,6 +24,11 @@ App.ApplicationRoute = Ember.Route.extend( {
 			} );
 		},
 
+		/**
+		 * Hide modal dialog.
+		 *
+		 * @method removeModal
+		 */
 		removeModal: function () {
 			this.disconnectOutlet( {
 				outlet: 'modal',

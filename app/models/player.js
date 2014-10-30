@@ -18,5 +18,14 @@ App.Player = Ember.Object.extend( {
 	 * @type {string}
 	 * @default {null}
 	 */
-	mark: null
+	mark: null,
+
+	/**
+	 * Define that player isrer or n.
+	 *
+	 * @property isComputer
+	 * @type {boolean}
+	 * @default {false}
+	 */
+	isComputer: false
 } );

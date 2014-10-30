@@ -4,6 +4,8 @@
  */
 App.PlayerNameModalController = Ember.ObjectController.extend( {
 	/**
+	 * Player name.
+	 *
 	 * @property playerName
 	 * @type {string}
 	 * @default {null}
@@ -24,6 +26,12 @@ App.PlayerNameModalController = Ember.ObjectController.extend( {
 		isHidden: true
 	},
 
+	/**
+	 * List of buttons for modal dialog.
+	 *
+	 * @property customModalButtons
+	 * @type {Object[]}
+	 */
 	customModalButtons: [],
 
 	init: function () {
@@ -41,10 +49,28 @@ App.PlayerNameModalController = Ember.ObjectController.extend( {
 		this.set( 'cancelBtn.isHidden', this.get( 'isNameRequired' ) )
 	}.observes( 'isNameRequired' ),
 
+	/**
+	 * Define that player data is valid or not.
+	 *
+	 * @property isValid
+	 * @type {boolean}
+	 */
 	isValid: true,
 
+	/**
+	 * Player name validation message.
+	 *
+	 * @property validationMessage
+	 * @type {string}
+	 */
 	validationMessage: 'Player name should not be empty',
 
+	/**
+	 * Validate player name.
+	 *
+	 * @method validateName
+	 * @returns {boolean} Returns <tt>true</tt> if player name is valid. Otherwise returns <tt>false</tt>.
+	 */
 	validateName: function () {
 		var name = $.trim( this.get( 'playerName' ) || '' ),
 			isValid = !Ember.isEmpty( name );
@@ -62,6 +88,10 @@ App.PlayerNameModalController = Ember.ObjectController.extend( {
 			var modal = this.get( 'modal' );
 
 			modal.$( 'input' ).focus();
+		},
+		onModalHidden: function() {
+			this.send( 'removeModal' );
+			this.send( 'playerNameModalClosed' );
 		},
 		saveName: function () {
 			var modal = this.get( 'modal' );

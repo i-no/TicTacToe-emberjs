@@ -62,7 +62,7 @@ gulp.task( 'js', function () {
 		.pipe( gulp.dest( './build/js' ) )
 } );
 
-gulp.task( 'app', [ 'templates', 'js' ] );
+gulp.task( 'app', [ 'templates', 'js', 'less' ] );
 
 gulp.task( 'build-app', [ 'svg2png', 'less', 'templates', 'js' ] );
 

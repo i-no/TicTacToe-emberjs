@@ -12,12 +12,7 @@ App.GameRoute = Ember.Route.extend( {
 	} ),
 
 	model: function () {
-		var game = this.get( 'game' );
-
-		game.reset();
-		game.start();
-
-		return game;
+		return this.get( 'game' );
 	},
 
 	setupController: function ( controller, model ) {
@@ -25,10 +20,13 @@ App.GameRoute = Ember.Route.extend( {
 
 		this._super( controller, model );
 
+		model.reset();
+
 		if ( Ember.isEmpty( user.get( 'name' ) ) ) {
 			controller.send( 'editName', true );
 		}
-
-		controller.set( 'startTime', new Date() );
+		else {
+			model.start();
+		}
 	}
 } );
