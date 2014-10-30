@@ -4,6 +4,11 @@
  */
 App.PlayerNameModalController = Ember.ObjectController.extend( {
 	/**
+	 * Controller dependencies.
+	 */
+	needs: [ 'game' ],
+
+	/**
 	 * Player name.
 	 *
 	 * @property playerName
@@ -90,8 +95,10 @@ App.PlayerNameModalController = Ember.ObjectController.extend( {
 			modal.$( 'input' ).focus();
 		},
 		onModalHidden: function() {
+			var gameController = this.get( 'controllers.game' );
+
 			this.send( 'removeModal' );
-			this.send( 'playerNameModalClosed' );
+			gameController.send( 'playerNameModalClosed' );
 		},
 		saveName: function () {
 			var modal = this.get( 'modal' );

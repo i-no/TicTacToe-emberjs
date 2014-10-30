@@ -106,21 +106,24 @@ describe( 'App.Game testing: ', function() {
 		expect( game.get( 'currentPlayer' ) ).not.toBeNull();
 		expect( game.get( 'player1.mark' ) ).not.toBeNull();
 		expect( game.get( 'player2.mark' ) ).not.toBeNull();
+		expect( game.get( 'startTime' ) ).not.toBeNull();
 	});
 
-	it( 'reset() function should clear field and reset current player', function() {
+	it( 'reset() function should clear field, reset current player and start game timer', function() {
 		var field = game.get( 'field' ),
 			fieldSize = field.get( 'size' );
 
 		game.set( 'player1', App.Player.create( { name: 'player1' } ) );
 		game.set( 'player2', App.Player.create( { name: 'player2' } ) );
 		game.set( 'currentPlayer', game.get( 'player1' ) );
+		game.set( 'startTime', moment() );
 		field.setValues( noWinnerFields[0] );
 
 		game.reset();
 
 		expect( game.get( 'field' ).getEmptyCells().length ).toEqual( fieldSize * fieldSize );
 		expect( game.get( 'currentPlayer' ) ).toBeNull();
+		expect( game.get( 'startTime' ) ).toBeNull();
 	});
 
 	it( 'hasWinner() function should return true if there are marksToWin marks of the same type' +

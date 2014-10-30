@@ -1,6 +1,8 @@
 /**
  * @module Controllers
  * @class GameController
+ *
+ * @requires GameController
  */
 App.GameController = Ember.ObjectController.extend( {
 	//region Methods
