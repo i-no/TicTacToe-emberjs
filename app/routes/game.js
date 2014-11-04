@@ -21,6 +21,7 @@ App.GameRoute = Ember.Route.extend( {
 		this._super( controller, model );
 
 		model.reset();
+		controller.set( 'isGameOver', false );
 
 		if ( Ember.isEmpty( user.get( 'name' ) ) ) {
 			controller.send( 'editName', true );

@@ -1,40 +1,57 @@
 <div class="row">
 	<div class="col-sm-5 col-sm-push-7 game-info">
 		<div class="row">
-			<div class="player-name-block col-sm-12 col-xs-6">
-				<div class="block-label">Player name</div>
-				<div>
-					<span class="player-name">{{player1.name}}</span>
-					<a href="#" class="edit-name-btn" {{action 'editName'}}><span class="glyphicon glyphicon-pencil"></span></a>
-					<!--<a href="#" class="btn btn-default visible-xs-inline" {{action 'editName'}}><span class="glyphicon glyphicon-pencil"></span> Edit</a>-->
-				</div>
-			</div>
-			<div class="players-marks-block col-sm-12 col-xs-6">
-				<div>
-					<div class="block-label">You plays</div>
-					<div  {{bind-attr class=":player-mark player1.mark"}}>
-
+			{{#unless isGameOver}}
+				<div class="player-name-block col-sm-12 col-xs-6">
+					<div class="block-label">Player name</div>
+					<div>
+						<span class="player-name">{{player1.name}}</span>
+						<a href="#" class="edit-name-btn" {{action 'editName'}}><span class="glyphicon glyphicon-pencil"></span></a>
+						<!--<a href="#" class="btn btn-default visible-xs-inline" {{action 'editName'}}><span class="glyphicon glyphicon-pencil"></span> Edit</a>-->
 					</div>
 				</div>
-				<div>
-					<div class="block-label">Computer</div>
-					<div {{bind-attr class=":player-mark player2.mark"}}>
+				<div class="players-marks-block col-sm-12 col-xs-6">
+					<div>
+						<div class="block-label">You plays</div>
+						<div  {{bind-attr class=":player-mark player1.mark"}}>
 
+						</div>
+					</div>
+					<div>
+						<div class="block-label">Computer</div>
+						<div {{bind-attr class=":player-mark player2.mark"}}>
+
+						</div>
 					</div>
 				</div>
-			</div>
+			{{else}}
+				<div class="col-xs-12 col-sm-10">
+					<div {{bind-attr class=":game-over-text gameOverStatus"}}>
+						{{gameOverText}}
+					</div>
+				</div>
+			{{/unless}}
 		</div>
 		<div class="row game-btns-block">
-			<div class="col-xs-6 col-sm-10">
-				<a class="btn btn-block btn-primary" href="#" {{action 'restartGame'}}>Restart Game</a>
-			</div>
-			<div class="col-xs-6 col-sm-10">
-				<a class="btn btn-block btn-primary" href="#" {{action 'showModal' 'game-results-modal'}}>View History</a>
-			</div>
+			{{#unless isGameOver}}
+				<div class="col-xs-6 col-sm-10">
+					<a class="btn btn-block btn-primary" href="#" {{action 'restartGame'}}>Restart Game</a>
+				</div>
+				<div class="col-xs-6 col-sm-10">
+					<a class="btn btn-block btn-primary" href="#" {{action 'showModal' 'game-results-modal'}}>View History</a>
+				</div>
+			{{else}}
+				<div class="col-xs-6 col-sm-10">
+					<a class="btn btn-block btn-primary" href="#" {{action 'playAgain'}}>Plain Again</a>
+				</div>
+				<div class="col-xs-6 col-sm-10">
+					<a class="btn btn-block btn-primary" href="#" {{action 'showModal' 'game-results-modal'}}>Game Results</a>
+				</div>
+			{{/unless}}
 		</div>
 	</div>
 	<div class="col-sm-7 col-xs-12 col-sm-pull-5">
-		<div class="game-field">
+		<div {{bind-attr class=":game-field isGameOver:disabled"}}>
 			<div class="game-field-container">
 				{{#each rows in field.cells}}
 					{{#each cell in rows}}

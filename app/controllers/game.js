@@ -5,6 +5,53 @@
  * @requires GameController
  */
 App.GameController = Ember.ObjectController.extend( {
+
+	//region Properties
+
+	isGameOver: false,
+
+	winner: null,
+
+	/**
+	 * Status of the game.
+	 *
+	 * @property gameoverStatus Returns 'win', 'lose' or 'draw' status.
+	 * @type {string}
+	 */
+	gameOverStatus: function () {
+		var winner = this.get( 'winner' );
+
+		if ( Ember.isNone( winner ) ) return 'draw';
+
+		if ( winner.get( 'isComputer' ) ) {
+			return 'lose';
+		}
+		else return 'win';
+	}.property( 'winner' ),
+
+	/**
+	 * Text displayed when player win, lose or game ends in a draw.
+	 *
+	 * @property gameOverText
+	 * @type {string}
+	 */
+	gameOverText: function () {
+		var status = this.get( 'gameOverStatus' );
+
+		switch ( status ) {
+			case 'win':
+				return 'You win!';
+			case 'lose':
+				return 'You lose!';
+			case 'draw':
+				return 'Draw'
+		}
+
+		return '';
+	}.property( 'gameOverStatus' ),
+
+	//endregion
+
 	//region Methods
 
 	/**
@@ -44,22 +91,22 @@ App.GameController = Ember.ObjectController.extend( {
 			field = game.get( 'field' ),
 			startTime = game.get( 'startTime' ),
 			endTime = moment(),
-			gameOverData = Ember.Object.create( {
-				winner: null
-			} );
+			winnerCells = game.findWinnerCells();
 
-		if ( game.hasWinner() ) {
+		if ( !Ember.isEmpty( winnerCells )  ) {
 			winner = currentPlayer;
+			field.highlightCells( winnerCells );
 		}
 
-		gameOverData.set( 'winner', winner );
 		this.saveGameResult( App.GameResultItem.create( {
 			date: Date.now(),
 			winnerName: Ember.isEmpty( winner ) ? null : winner.get( 'name' ),
 			playTime: endTime.diff( startTime )
 		} ) );
 
-		this.send( 'showModal', 'gameover-modal', gameOverData );
+		this.set( 'isGameOver', true );
+		this.set( 'winner', winner );
+		//this.send( 'showModal', 'gameover-modal', gameOverData );
 	},
 
 	/**
@@ -112,7 +159,9 @@ App.GameController = Ember.ObjectController.extend( {
 		 * @param {Cell} cell Cell that was clicked.
 		 */
 		cellClick: function ( cell ) {
-			this.makeMove( cell );
+			if ( !this.get( 'isGameOver' ) ) {
+				this.makeMove( cell );
+			}
 		},
 
 		/**
@@ -123,6 +172,7 @@ App.GameController = Ember.ObjectController.extend( {
 		playAgain: function () {
 			var game = this.get( 'model' );
 
+			this.set( 'isGameOver', false );
 			game.reset();
 			game.start();
 		},

@@ -60,68 +60,80 @@ App.Game = Ember.Object.extend( {
 	/**
 	 * Check array to find marksToWin marks in a row.
 	 *
-	 * @method checkArray
-	 * @param {Cell[]} data Array of field cells.
-	 * @return {boolean} Returns <tt>true</tt> if there are {{#crossLink "Game/marksToWin:property"}}{{/crossLink}} marks of the same type in a row. Otherwise returns <tt>false</tt>.
+	 * @method checkForWinner
+	 * @param {Cell[]} cells Array of field cells.
+	 * @return {Cell[]} Returns <tt>true</tt> if there are {{#crossLink "Game/marksToWin:property"}}{{/crossLink}} marks of the same type in a row. Otherwise returns <tt>false</tt>.
 	 */
-	checkArray: function ( data ) {
+	checkForWinner: function ( cells ) {
 		var prevValue = null,
 			count = 0,
+			cellsWithMarks = [],
 			marksToWin = this.get( 'marksToWin' );
 
-		for ( var i = 0; i < data.length; i++ ) {
-			if ( data[ i ].get( 'isEmpty' ) ) {
+		for ( var i = 0; i < cells.length; i++ ) {
+			if ( cells[ i ].get( 'isEmpty' ) ) {
 				count = 0;
 				prevValue = null;
+				cellsWithMarks = [];
 			}
 			else {
 				if ( count === 0 ) {
-					prevValue = data[ i ].get( 'value' );
+					prevValue = cells[ i ].get( 'value' );
 				}
 
-				if ( prevValue === data[ i ].get( 'value' ) ) {
+				if ( prevValue === cells[ i ].get( 'value' ) ) {
 					count += 1;
+					cellsWithMarks.push( cells[ i ] );
 				}
 				else {
 					count = 1;
-					prevValue = data[ i ].get( 'value' );
+					prevValue = cells[ i ].get( 'value' );
+					cellsWithMarks.push( cells[ i ] );
 				}
 			}
 
 			if ( count >= marksToWin ) {
-				return true;
+				return cellsWithMarks;
 			}
 		}
 
-		return false;
+		return null;
 	},
 
 	/**
 	 * Check that game has a winner.
 	 *
-	 * @method hasWinner
-	 * @return {boolean} Returns <tt>true</tt> if we have a winner in the game. Otherwise returns <tt>false</tt>.
+	 * @method findWinnerCells
+	 * @return {Object} Returns <tt>true</tt> if we have a winner in the game. Otherwise returns <tt>false</tt>.
 	 */
-	hasWinner: function () {
+	findWinnerCells: function () {
 		var field = this.get( 'field' ),
 			fieldSize = field.get( 'size' ),
 			marksToWin = this.get( 'marksToWin' ),
+			winnerCells = [],
 			diagonals = field.getDiagonals( marksToWin );
 
 		//check rows and columns
 		for ( var i = 0; i < fieldSize; i++ ) {
-			if ( this.checkArray( field.getRow( i ) ) ) return true;
-			if ( this.checkArray( field.getColumn( i ) ) ) return true;
+			winnerCells = this.checkForWinner( field.getRow( i ) ) || this.checkForWinner( field.getColumn( i ) );
+
+			if ( !Ember.isEmpty( winnerCells ) ) {
+				return winnerCells;
+			}
 		}
 
 		//check diagonals
 		if ( !Ember.isEmpty( diagonals ) ) {
 			for ( i = 0; i < diagonals.length; i++ ) {
-				if ( this.checkArray( diagonals[ i ] ) ) return true;
+				winnerCells = this.checkForWinner( diagonals[ i ] );
+
+				if ( !Ember.isEmpty( winnerCells ) ) {
+					return winnerCells;
+				}
 			}
 		}
 
-		return false;
+		return null;
 	},
 
 	/**
@@ -133,9 +145,10 @@ App.Game = Ember.Object.extend( {
 	 */
 	isGameOver: function () {
 		var field = this.get( 'field' ),
-			emptyCells = field.getEmptyCells();
+			emptyCells = field.getEmptyCells(),
+			winnerCells = this.findWinnerCells();
 
-		return this.hasWinner() || emptyCells.length === 0;
+		return !Ember.isEmpty( winnerCells ) || emptyCells.length === 0;
 	},
 
 	/**

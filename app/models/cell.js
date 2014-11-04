@@ -31,6 +31,8 @@ App.Cell = Ember.Object.extend( {
 	 */
 	value: null,
 
+	isHighlighted: false,
+
 	/**
 	 * Check that current cell is empty.
 	 *

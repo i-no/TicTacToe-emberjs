@@ -9,7 +9,7 @@ App.FieldCellView = Ember.View.extend( {
 
 	classNames: [ 'field-cell' ],
 
-	classNameBindings: [ 'isX:x', 'isO:o' ],
+	classNameBindings: [ 'isX:x', 'isO:o', 'cell.isHighlighted:highlight' ],
 
 	/**
 	 * Cell data.

@@ -69,6 +69,7 @@ App.Field = Ember.Object.extend( {
 		for ( var i = 0; i < cells.length; i++ ) {
 			for ( var j = 0; j < cells[ i ].length; j++ ) {
 				cells[ i ][ j ].set( 'value', null );
+				cells[ i ][ j ].set( 'isHighlighted', false );
 			}
 		}
 	},
@@ -262,6 +263,14 @@ App.Field = Ember.Object.extend( {
 		}
 
 		return diagonals;
+	},
+
+	highlightCells: function( cells ) {
+		if ( Ember.isEmpty( cells ) ) return;
+
+		for ( var i = 0; i < cells.length; i++ ) {
+			cells[ i ].set( 'isHighlighted', true );
+		}
 	}
 
 	//endregion
