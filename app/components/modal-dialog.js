@@ -27,17 +27,25 @@ App.ModalDialogComponent = Ember.Component.extend( {
 	},
 
 	didInsertElement: function () {
+		var self = this;
+
 		this._super();
 
 		this.$( '.modal' )
 			.on( 'show.bs.modal', function () {
-				this.sendAction( 'onModalShow' );
+				setTimeout( function() {
+					self.sendAction( 'onModalShow' );
+				}, 0 );
 			}.bind( this ) )
 			.on( 'shown.bs.modal', function () {
-				this.sendAction( 'onModalShown' );
+				setTimeout( function() {
+					self.sendAction( 'onModalShown' );
+				}, 0 );
 			}.bind( this ) )
 			.on( 'hidden.bs.modal', function () {
-				this.sendAction( 'onModalHidden' );
+				setTimeout( function() {
+					self.sendAction( 'onModalHidden' );
+				}, 0 );
 			}.bind( this ) )
 			.modal(
 			{
