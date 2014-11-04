@@ -126,6 +126,12 @@ App.Field = Ember.Object.extend( {
 		cells[ row ][ col ].set( 'value', value );
 	},
 
+	/**
+	 * Set field values.
+	 *
+	 * @method setValues
+	 * @param {string[][]} values Two dimensional array of strings that should be set into field.
+	 */
 	setValues: function( values ) {
 		var cells = this.get( 'cells' ),
 			fieldSize = this.get( 'size' );
@@ -265,6 +271,12 @@ App.Field = Ember.Object.extend( {
 		return diagonals;
 	},
 
+	/**
+	 * Highlight field cells.
+	 *
+	 * @method highlightCells
+	 * @param {Cell[]} cells Array of cell that need to highlight.
+	 */
 	highlightCells: function( cells ) {
 		if ( Ember.isEmpty( cells ) ) return;
 

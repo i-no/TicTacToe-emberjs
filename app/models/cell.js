@@ -31,6 +31,12 @@ App.Cell = Ember.Object.extend( {
 	 */
 	value: null,
 
+	/**
+	 * Highlight cell.
+	 *
+	 * @property isHighlighted
+	 * @type {boolean}
+	 */
 	isHighlighted: false,
 
 	/**

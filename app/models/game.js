@@ -62,7 +62,9 @@ App.Game = Ember.Object.extend( {
 	 *
 	 * @method checkForWinner
 	 * @param {Cell[]} cells Array of field cells.
-	 * @return {Cell[]} Returns <tt>true</tt> if there are {{#crossLink "Game/marksToWin:property"}}{{/crossLink}} marks of the same type in a row. Otherwise returns <tt>false</tt>.
+	 * @return {Cell[]|null} Check array if there are {{#crossLink "Game/marksToWin:property"}}{{/crossLink}}
+	 * marks of the same type in a row and return array of cells with this marks. If there are no marks of the
+	 * same type in a row then return <tt>null</tt>.
 	 */
 	checkForWinner: function ( cells ) {
 		var prevValue = null,
@@ -101,10 +103,11 @@ App.Game = Ember.Object.extend( {
 	},
 
 	/**
-	 * Check that game has a winner.
+	 * Check that game has a winner and return array cells with winning combination of marks.
 	 *
 	 * @method findWinnerCells
-	 * @return {Object} Returns <tt>true</tt> if we have a winner in the game. Otherwise returns <tt>false</tt>.
+	 * @return {Cell[]|null} Returns array of cells with winning combination of marks if we have a winner in the game.
+	 * Otherwise returns <tt>null</tt>.
 	 */
 	findWinnerCells: function () {
 		var field = this.get( 'field' ),
@@ -169,7 +172,8 @@ App.Game = Ember.Object.extend( {
 	},
 
 	/**
-	 * Clear game field and reset {{#crossLink "Game/currentPlayer:property"}}currentPlayer{{/crossLink}} property.
+	 * Clear game field and reset {{#crossLink "Game/currentPlayer:property"}}currentPlayer{{/crossLink}} and
+	 * {{#crossLink "Game/startTime:property"}}startTime{{/crossLink}} properties.
 	 *
 	 * @method reset
 	 */

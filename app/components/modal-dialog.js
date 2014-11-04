@@ -3,16 +3,52 @@
  * @class ModalDialogComponent
  */
 App.ModalDialogComponent = Ember.Component.extend( {
+	/**
+	 * Show cancel button in modal dialog or not.
+	 *
+	 * @property showCancelBtn
+	 * @type {boolean}
+	 */
 	showCancelBtn: true,
 
+	/**
+	 * Show close button in modal dialog header or not.
+	 *
+	 * @property showCloseBtn
+	 * @type {boolean}
+	 */
 	showCloseBtn: true,
 
+	/**
+	 * Show modal dialog footer or not.
+	 *
+	 * @property showFooter
+	 * @type {boolean}
+	 */
 	showFooter: true,
 
+	/**
+	 * Array of custom buttons for modal dialog.
+	 *
+	 * @property customButtons
+	 * @type {Object[]}
+	 */
 	customButtons: null,
 
+	/**
+	 * Show modal backdrop or not.
+	 *
+	 * @property backdrop
+	 * @type {boolean}
+	 */
 	backdrop: true,
 
+	/**
+	 * Show modal dialog or not.
+	 *
+	 * @propery isVisible
+	 * @type {boolean}
+	 */
 	isVisible: true,
 
 	init: function() {

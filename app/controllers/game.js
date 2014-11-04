@@ -8,14 +8,26 @@ App.GameController = Ember.ObjectController.extend( {
 
 	//region Properties
 
+	/**
+	 * Is game over or not.
+	 *
+	 * @property isGameOver
+	 * @type {boolean}
+	 */
 	isGameOver: false,
 
+	/**
+	 * Game winner.
+	 *
+	 * @property winner
+	 * @type {Player}
+	 */
 	winner: null,
 
 	/**
 	 * Status of the game.
 	 *
-	 * @property gameoverStatus Returns 'win', 'lose' or 'draw' status.
+	 * @property gameOverStatus Returns 'win', 'lose' or 'draw' status.
 	 * @type {string}
 	 */
 	gameOverStatus: function () {
@@ -56,7 +68,7 @@ App.GameController = Ember.ObjectController.extend( {
 
 	/**
 	 * Set a mark of current player in a field cell and check that game is over or not. If game is not over,
-	 * then turn goes to the next playes. Otherwise we end the game and save game result.
+	 * then turn goes to the next player. Otherwise we end the game and save game result.
 	 *
 	 * @method makeMove
 	 * @param {Cell} cell Field cell to set a mark.
@@ -80,7 +92,7 @@ App.GameController = Ember.ObjectController.extend( {
 	},
 
 	/**
-	 * Generate game result data, save it and open game over modal dialog.
+	 * Generate game result data, save it and show game over text.
 	 *
 	 * @method endGame
 	 */
@@ -106,7 +118,6 @@ App.GameController = Ember.ObjectController.extend( {
 
 		this.set( 'isGameOver', true );
 		this.set( 'winner', winner );
-		//this.send( 'showModal', 'gameover-modal', gameOverData );
 	},
 
 	/**
@@ -202,6 +213,12 @@ App.GameController = Ember.ObjectController.extend( {
 
 			this.send( 'showModal', 'player-name-modal', modalData );
 		},
+
+		/**
+		 * Fired when user close player name modal dialog.
+		 *
+		 * @event playerNameModalClosed
+		 */
 		playerNameModalClosed: function() {
 			var game = this.get( 'model' );
 
