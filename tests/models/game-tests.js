@@ -29,7 +29,7 @@ describe( 'App.Game testing: ', function() {
 				[ 'x', 'o', 'o', 'o', 'o' ],
 				[ 'o', 'o', 'x', 'x', 'o' ],
 				[ 'o', 'x', 'o', 'o', null ]
-			],
+			]
 		];
 
 	var noWinnerFields = [
@@ -60,7 +60,7 @@ describe( 'App.Game testing: ', function() {
 				[ 'x', 'o', 'o', 'o', null ],
 				[ 'o', 'x', 'x', 'x', 'o' ],
 				[ 'o', 'x', 'o', 'o', null ]
-			],
+			]
 		];
 
 	var fieldsWithDraw = [
@@ -91,7 +91,7 @@ describe( 'App.Game testing: ', function() {
 				[ 'x', 'o', 'o', 'x', 'x' ],
 				[ 'o', 'x', 'x', 'x', 'o' ],
 				[ 'o', 'x', 'o', 'o', 'x' ]
-			],
+			]
 		];
 
 	beforeEach( function() {
@@ -126,7 +126,7 @@ describe( 'App.Game testing: ', function() {
 		expect( game.get( 'startTime' ) ).toBeNull();
 	});
 
-	it( 'hasWinner() function should return true if there are marksToWin marks of the same type' +
+	it( 'findWinnerCells() function should not be null if there are marksToWin marks of the same type' +
 		' that  placed in a horizontal, vertical, or diagonal row', function() {
 		var i,
 			field = game.get( 'field' );
@@ -135,21 +135,21 @@ describe( 'App.Game testing: ', function() {
 			field.setValues( winnerFields[i] );
 			game.set( 'field', field );
 
-			expect( game.hasWinner() ).toBeTruthy();
+			expect( game.findWinnerCells() ).not.toBeNull();
 		}
 
 		for ( i = 0; i < noWinnerFields.length; i++ ) {
 			field.setValues( noWinnerFields[i] );
 			game.set( 'field', field );
 
-			expect( game.hasWinner() ).toBeFalsy();
+			expect( game.findWinnerCells() ).toBeNull();
 		}
 
 		for ( i = 0; i < fieldsWithDraw.length; i++ ) {
 			field.setValues( fieldsWithDraw[i] );
 			game.set( 'field', field );
 
-			expect( game.hasWinner() ).toBeFalsy();
+			expect( game.findWinnerCells() ).toBeNull();
 		}
 	} );
 

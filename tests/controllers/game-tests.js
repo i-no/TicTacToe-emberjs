@@ -56,7 +56,15 @@ describe( 'App.GameController testing: ', function() {
 	} );
 
 	it( 'endGame() should save current player as a winner if game has a winner', function() {
-		spyOn( game, 'hasWinner' ).andReturn( true );
+		var cells = field.get( 'cells' ),
+			winnerCells = [
+				cells[ 0 ][ 0 ],
+				cells[ 0 ][ 1 ],
+				cells[ 0 ][ 2 ],
+				cells[ 0 ][ 3 ]
+			];
+
+		spyOn( game, 'findWinnerCells' ).andReturn( winnerCells );
 		spyOn( controller, 'saveGameResult' );
 
 		game.set( 'startTime', moment() );
@@ -64,12 +72,13 @@ describe( 'App.GameController testing: ', function() {
 
 		controller.endGame();
 
+		expect( controller.get( 'winner' ) ).toEqual( player2 );
 		expect( controller.saveGameResult ).toHaveBeenCalled();
 		expect( controller.saveGameResult.mostRecentCall.args[ 0 ].get( 'winnerName' ) ).toEqual( 'player2' );
 	} );
 
 	it( 'endGame() should save null as a winner name if game has no winner', function() {
-		spyOn( game, 'hasWinner' ).andReturn( false );
+		spyOn( game, 'findWinnerCells' ).andReturn( null );
 		spyOn( controller, 'saveGameResult' );
 
 		game.set( 'startTime', moment() );
@@ -77,8 +86,65 @@ describe( 'App.GameController testing: ', function() {
 
 		controller.endGame();
 
+		expect( controller.get( 'winner' ) ).toBeNull();
 		expect( controller.saveGameResult ).toHaveBeenCalled();
 		expect( controller.saveGameResult.mostRecentCall.args[ 0 ].get( 'winnerName' ) ).toBeNull();
+	} );
+
+	it( 'gameOverStatus should be "win" if player wins', function() {
+		var cells = field.get( 'cells' ),
+			winnerCells = [
+				cells[ 0 ][ 0 ],
+				cells[ 0 ][ 1 ],
+				cells[ 0 ][ 2 ],
+				cells[ 0 ][ 3 ]
+			];
+
+		spyOn( game, 'findWinnerCells' ).andReturn( winnerCells );
+		spyOn( controller, 'saveGameResult' );
+
+		game.set( 'startTime', moment() );
+		game.set( 'currentPlayer', player1 );
+
+		controller.endGame();
+
+		expect( controller.get( 'gameOverStatus' ) ).toEqual( 'win' );
+	} );
+
+	it( 'gameOverStatus should be "lose" if computer wins', function() {
+		var cells = field.get( 'cells' ),
+			winnerCells = [
+				cells[ 0 ][ 0 ],
+				cells[ 0 ][ 1 ],
+				cells[ 0 ][ 2 ],
+				cells[ 0 ][ 3 ]
+			];
+
+		spyOn( game, 'findWinnerCells' ).andReturn( winnerCells );
+		spyOn( controller, 'saveGameResult' );
+
+		player2.set( 'isComputer', true );
+
+		game.set( 'startTime', moment() );
+		game.set( 'currentPlayer', player2 );
+
+		controller.endGame();
+
+		expect( controller.get( 'gameOverStatus' ) ).toEqual( 'lose' );
+	} );
+
+	it( 'gameOverStatus should be "draw" if we have no winner', function() {
+		var cells = field.get( 'cells' );
+
+		spyOn( game, 'findWinnerCells' ).andReturn( null );
+		spyOn( controller, 'saveGameResult' );
+
+		game.set( 'startTime', moment() );
+		game.set( 'currentPlayer', player2 );
+
+		controller.endGame();
+
+		expect( controller.get( 'gameOverStatus' ) ).toEqual( 'draw' );
 	} );
 
 	it( 'saveGameResult() should save game result in gameResultStorage', function() {
