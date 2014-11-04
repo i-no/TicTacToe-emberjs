@@ -89,7 +89,9 @@ App.Game = Ember.Object.extend( {
 				}
 				else {
 					count = 1;
+					cellsWithMarks = [];
 					prevValue = cells[ i ].get( 'value' );
+
 					cellsWithMarks.push( cells[ i ] );
 				}
 			}
