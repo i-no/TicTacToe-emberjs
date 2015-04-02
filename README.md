@@ -1,7 +1,7 @@
 TicTacToe-emberjs
 =================
 Simple example of 5x5 [Tic-tac-toe game](http://en.wikipedia.org/wiki/Tic-tac-toe) written in JavaScript and 
-[Ember.js](http://emberjs.org) framework.
+[Ember.js](http://emberjs.com) framework.
 
 Project uses [Gulp](http://gulpjs.com) as build tool, [Jasmine](http://jasmine.github.io/) for unit testing and
 [YUIDoc](http://yui.github.io/yuidoc/) for API documentation generation.
