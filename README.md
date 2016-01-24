@@ -7,7 +7,7 @@ Project uses [Gulp](http://gulpjs.com) as build tool, [Jasmine](http://jasmine.g
 [YUIDoc](http://yui.github.io/yuidoc/) for API documentation generation.
 
 ## Installation
-This project requires an installed [Node.js](http://nodejs.org/) platform, [Bower](http://bower.io/) and [Gulp](http://gulpjs.com/).
+Before installation of project dependencies, you need to install [Node.js](http://nodejs.org/) platform, [Bower](http://bower.io/) package manager and [Gulp](http://gulpjs.com/).
 
 To install all project dependencies just run command:
 
